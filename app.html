@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#FDFBF5">
+<title>Little Arjuns: Learn and Grow</title>
+<meta name="description" content="Little Arjuns: Learn and Grow — Part 1 of Life Learnings (ages 3–8). No ads. No data collection. Made in India.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FDFBF5;
+    --sky:#EAF4F2;
+    --ink:#26324B;
+    --ink-soft:#5A6580;
+    --haldi:#D98E1B;
+    --haldi-deep:#B87310;
+    --haldi-soft:#FBF1DC;
+    --peacock:#0E6B63;
+    --peacock-soft:#DDEEEC;
+    --coral:#E2654B;
+    --line:#E8E2D4;
+    --white:#FFFFFF;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{height:100%}
+  body{
+    background:
+      radial-gradient(circle at 85% -40px, #FFE9BF 0 140px, transparent 141px),
+      linear-gradient(var(--sky) 0%, var(--paper) 42%);
+    color:var(--ink);
+    font-family:"Source Sans 3",system-ui,sans-serif;
+    overflow:hidden;
+    user-select:none;-webkit-user-select:none;
+  }
+  button{font-family:inherit;border:none;background:none;cursor:pointer;color:inherit}
+
+  /* ---------- screens ---------- */
+  .screen{
+    position:fixed;inset:0;display:none;flex-direction:column;align-items:center;
+    padding:max(14px, env(safe-area-inset-top)) 18px max(14px, env(safe-area-inset-bottom));
+    overflow-y:auto;overflow-x:hidden;
+  }
+  .screen.active{display:flex}
+
+  /* ---------- shared ---------- */
+  .baloo{font-family:"Baloo 2",system-ui,sans-serif}
+  .topbar{
+    width:100%;max-width:520px;display:flex;align-items:center;justify-content:space-between;
+    gap:10px;margin-bottom:6px;min-height:56px;
+  }
+  .iconbtn{
+    min-width:56px;min-height:56px;border-radius:18px;
+    background:var(--white);border:2px solid var(--line);
+    font-size:1.5rem;display:flex;align-items:center;justify-content:center;
+    box-shadow:0 3px 0 var(--line);
+  }
+  .iconbtn:active{transform:translateY(2px);box-shadow:0 1px 0 var(--line)}
+  .trust{
+    margin-top:auto;padding-top:14px;color:var(--ink-soft);
+    font-size:.85rem;text-align:center;font-weight:600;
+  }
+  .bubble{
+    position:relative;background:var(--white);border:2.5px solid var(--ink);
+    border-radius:20px;padding:12px 18px;max-width:340px;
+    font-family:"Baloo 2",sans-serif;font-weight:700;font-size:1.15rem;line-height:1.35;
+    box-shadow:0 4px 0 rgba(38,50,75,.15);text-align:center;
+  }
+  .bubble::after{
+    content:"";position:absolute;bottom:-13px;left:50%;transform:translateX(-50%);
+    border:11px solid transparent;border-top-color:var(--ink);
+  }
+  .bubble::before{
+    content:"";position:absolute;bottom:-9px;left:50%;transform:translateX(-50%);
+    border:10px solid transparent;border-top-color:var(--white);z-index:1;
+  }
+
+  /* ---------- Furry ---------- */
+  .furry{display:block}
+  .furry .tail{transform-origin:32px 138px;animation:wag .7s ease-in-out infinite}
+  .furry.idle{animation:bob 3s ease-in-out infinite}
+  .furry.party{animation:jump .55s ease-in-out infinite}
+  @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+  @keyframes wag{0%,100%{transform:rotate(-8deg)}50%{transform:rotate(26deg)}}
+  @keyframes jump{
+    0%,100%{transform:translateY(0) scale(1,1)}
+    30%{transform:translateY(-34px) scale(.98,1.04) rotate(-4deg)}
+    60%{transform:translateY(0) scale(1.06,.94)}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .furry.idle,.furry.party,.furry .tail{animation:none}
+  }
+
+  /* ---------- splash ---------- */
+  #splash{justify-content:center;text-align:center;gap:10px}
+  #splash .part{
+    color:var(--peacock);font-weight:700;letter-spacing:.04em;font-size:1rem;
+  }
+  #splash h1{font-family:"Baloo 2",sans-serif;font-weight:800;font-size:2.35rem;line-height:1.08}
+  #splash h1 .grow{color:var(--haldi)}
+  #splash .credit{color:var(--ink-soft);font-size:.9rem;margin-top:2px}
+  .bigbtn{
+    margin-top:18px;background:var(--haldi);color:#fff;
+    font-family:"Baloo 2",sans-serif;font-weight:800;font-size:1.5rem;
+    padding:18px 40px;border-radius:26px;
+    box-shadow:0 6px 0 var(--haldi-deep);min-height:72px;
+  }
+  .bigbtn:active{transform:translateY(4px);box-shadow:0 2px 0 var(--haldi-deep)}
+
+  /* ---------- home ---------- */
+  .langwrap{display:flex;background:var(--white);border:2px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 3px 0 var(--line)}
+  .langbtn{
+    min-width:64px;min-height:52px;font-family:"Baloo 2",sans-serif;font-weight:800;
+    font-size:1.15rem;padding:0 14px;color:var(--ink-soft);
+  }
+  .langbtn.on{background:var(--peacock);color:#fff}
+  .homefurry{margin-top:2px;display:flex;flex-direction:column;align-items:center;gap:16px}
+  .doors{
+    width:100%;max-width:440px;display:grid;grid-template-columns:1fr 1fr 1fr;
+    gap:12px;margin-top:20px;
+  }
+  .door{
+    background:var(--white);border:2.5px solid var(--line);border-radius:22px;
+    min-height:104px;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    gap:2px;box-shadow:0 4px 0 var(--line);position:relative;
+  }
+  .door .num{font-family:"Baloo 2",sans-serif;font-weight:800;font-size:2.1rem;line-height:1}
+  .door .lbl{font-weight:700;font-size:.82rem;color:var(--ink-soft)}
+  .door.open{border-color:var(--haldi);background:var(--haldi-soft);box-shadow:0 4px 0 var(--haldi)}
+  .door.open .num{color:var(--haldi-deep)}
+  .door.open::after{content:"⭐";position:absolute;top:-12px;right:-6px;font-size:1.3rem}
+  .door.locked .num{color:#B9B2A2}
+  .door:active{transform:translateY(3px)}
+  .wob{animation:wobble .45s ease}
+  @keyframes wobble{0%,100%{transform:rotate(0)}25%{transform:rotate(-4deg)}75%{transform:rotate(4deg)}}
+
+  /* ---------- world 3 ---------- */
+  .worldtitle{font-family:"Baloo 2",sans-serif;font-weight:800;font-size:1.5rem;margin:4px 0 12px}
+  .acts{width:100%;max-width:440px;display:flex;flex-direction:column;gap:14px}
+  .act{
+    display:flex;align-items:center;gap:16px;background:var(--white);
+    border:2.5px solid var(--line);border-radius:22px;padding:16px 18px;
+    min-height:84px;box-shadow:0 4px 0 var(--line);text-align:left;width:100%;
+  }
+  .act .em{font-size:2.1rem}
+  .act .t{font-family:"Baloo 2",sans-serif;font-weight:800;font-size:1.25rem;line-height:1.15}
+  .act .s{font-size:.9rem;color:var(--ink-soft);font-weight:600}
+  .act.open{border-color:var(--peacock);box-shadow:0 4px 0 var(--peacock)}
+  .act.locked{opacity:.55}
+  .act:active{transform:translateY(3px)}
+
+  /* ---------- game ---------- */
+  #game{padding-bottom:8px}
+  .paws{display:flex;gap:6px;font-size:1.35rem;filter:grayscale(1);opacity:.9}
+  .paws span.got{filter:none;opacity:1;transform:scale(1.12)}
+  .gamebubble{
+    width:100%;max-width:520px;background:var(--white);border:2.5px solid var(--ink);
+    border-radius:20px;padding:12px 16px;text-align:center;
+    font-family:"Baloo 2",sans-serif;font-weight:800;font-size:1.3rem;line-height:1.3;
+    box-shadow:0 4px 0 rgba(38,50,75,.15);
+  }
+  #field{
+    width:100%;max-width:520px;flex:1;min-height:300px;margin-top:14px;
+    display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:1fr;gap:6px;
+    background:linear-gradient(#F2FAF3,#E7F4E4);
+    border:2.5px solid var(--line);border-radius:26px;padding:14px;
+  }
+  .obj{
+    font-size:2.6rem;display:flex;align-items:center;justify-content:center;
+    border-radius:20px;min-height:64px;transition:transform .15s;
+  }
+  .obj:active{transform:scale(1.2)}
+  .chip{
+    width:58px;height:58px;border-radius:50%;background:var(--haldi);
+    color:#fff;font-family:"Baloo 2",sans-serif;font-weight:800;font-size:1.7rem;
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 3px 0 var(--haldi-deep);animation:popin .35s ease;
+  }
+  @keyframes popin{0%{transform:scale(.2)}70%{transform:scale(1.25)}100%{transform:scale(1)}}
+  #askwrap{width:100%;max-width:520px;display:none;flex-direction:column;gap:14px;margin-top:14px}
+  .opts{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+  .opt{
+    background:var(--white);border:3px solid var(--peacock);border-radius:24px;
+    font-family:"Baloo 2",sans-serif;font-weight:800;font-size:2.4rem;color:var(--ink);
+    min-height:92px;box-shadow:0 5px 0 var(--peacock);
+  }
+  .opt:active{transform:translateY(3px);box-shadow:0 2px 0 var(--peacock)}
+  .opt.no{animation:wobble .45s ease;border-color:var(--coral);box-shadow:0 5px 0 var(--coral)}
+
+  /* ---------- celebrate ---------- */
+  #celebrate{justify-content:center;text-align:center;gap:14px}
+  #celebrate h2{font-family:"Baloo 2",sans-serif;font-weight:800;font-size:2.2rem}
+  #celebrate .sub{font-size:1.15rem;font-weight:600;color:var(--ink-soft)}
+  .rowbtns{display:flex;gap:14px;margin-top:10px;flex-wrap:wrap;justify-content:center}
+  .midbtn{
+    background:var(--peacock);color:#fff;font-family:"Baloo 2",sans-serif;font-weight:800;
+    font-size:1.2rem;padding:16px 26px;border-radius:22px;min-height:64px;
+    box-shadow:0 5px 0 #0A4E48;
+  }
+  .midbtn.gold{background:var(--haldi);box-shadow:0 5px 0 var(--haldi-deep)}
+  .midbtn:active{transform:translateY(3px)}
+
+  /* ---------- fx ---------- */
+  .confetti{
+    position:fixed;top:-20px;z-index:99;pointer-events:none;border-radius:3px;
+    animation:fall 1.7s linear forwards;
+  }
+  @keyframes fall{to{transform:translateY(108vh) rotate(720deg);opacity:.9}}
+  .flystar{
+    position:fixed;z-index:99;pointer-events:none;font-size:1.6rem;
+    animation:fly 1s ease-out forwards;
+  }
+  @keyframes fly{to{transform:translateY(-120px) scale(1.6);opacity:0}}
+  :focus-visible{outline:3px solid var(--peacock);outline-offset:2px}
+</style>
+</head>
+<body>
+
+<!-- ================= FURRY SVG ================= -->
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <g id="furrydog">
+      <!-- tail -->
+      <path class="tail" d="M34 138 Q8 120 16 96 Q34 112 44 126 Z" fill="#C77E1F"/>
+      <!-- body -->
+      <ellipse cx="100" cy="150" rx="56" ry="38" fill="#E8A33D"/>
+      <ellipse cx="100" cy="158" rx="30" ry="23" fill="#F5C36B"/>
+      <!-- front paws -->
+      <ellipse cx="78" cy="184" rx="15" ry="9" fill="#F5C36B" stroke="#C77E1F" stroke-width="2"/>
+      <ellipse cx="122" cy="184" rx="15" ry="9" fill="#F5C36B" stroke="#C77E1F" stroke-width="2"/>
+      <!-- collar -->
+      <rect x="64" y="118" width="72" height="12" rx="6" fill="#0E6B63"/>
+      <circle cx="100" cy="134" r="7" fill="#F3B93C" stroke="#B87310" stroke-width="2"/>
+      <!-- ears -->
+      <ellipse cx="57" cy="60" rx="17" ry="30" fill="#C77E1F" transform="rotate(-24 57 60)"/>
+      <ellipse cx="143" cy="60" rx="17" ry="30" fill="#C77E1F" transform="rotate(24 143 60)"/>
+      <!-- head -->
+      <circle cx="100" cy="84" r="47" fill="#E8A33D"/>
+      <!-- muzzle -->
+      <ellipse cx="100" cy="101" rx="24" ry="17" fill="#F7D9A0"/>
+      <!-- eyes -->
+      <circle cx="82" cy="76" r="6.2" fill="#2B2013"/>
+      <circle cx="118" cy="76" r="6.2" fill="#2B2013"/>
+      <circle cx="84" cy="74" r="2" fill="#fff"/>
+      <circle cx="120" cy="74" r="2" fill="#fff"/>
+      <!-- nose + smile + tongue -->
+      <ellipse cx="100" cy="95" rx="8" ry="6" fill="#3A2C1A"/>
+      <path d="M86 106 Q100 118 114 106" stroke="#3A2C1A" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+      <path d="M94 112 Q100 122 106 112 Q100 116 94 112 Z" fill="#E77A6E"/>
+    </g>
+  </defs>
+</svg>
+
+<!-- ================= SPLASH ================= -->
+<section id="splash" class="screen active">
+  <svg class="furry idle" width="170" height="170" viewBox="0 0 200 200"><use href="#furrydog"/></svg>
+  <div class="part baloo" id="sp-part">Part 1 of Life Learnings · Ages 3–8</div>
+  <h1>Little Arjuns:<br>Learn and <span class="grow">Grow</span></h1>
+  <div class="credit">by ParthSarthi 🇮🇳</div>
+  <button class="bigbtn" id="startbtn">Chalo! Let's Go 🐾</button>
+  <div class="trust" id="sp-trust">🚫 No ads &nbsp;·&nbsp; 🔒 No data collection &nbsp;·&nbsp; ❤️ Made in India</div>
+</section>
+
+<!-- ================= HOME ================= -->
+<section id="home" class="screen">
+  <div class="topbar">
+    <div style="width:56px"></div>
+    <div class="langwrap" role="group" aria-label="Language">
+      <button class="langbtn on" id="lang-en">EN</button>
+      <button class="langbtn" id="lang-hi">हिं</button>
+    </div>
+    <button class="iconbtn" id="home-replay" aria-label="Repeat">🔊</button>
+  </div>
+
+  <div class="homefurry">
+    <div class="bubble" id="home-bubble">Namaste! I am Furry!</div>
+    <svg class="furry idle" width="150" height="150" viewBox="0 0 200 200"><use href="#furrydog"/></svg>
+  </div>
+
+  <div class="doors" id="doors"></div>
+
+  <div class="trust" id="home-trust">🚫 No ads · 🔒 No data · ❤️ Made in India</div>
+</section>
+
+<!-- ================= WORLD 3 ================= -->
+<section id="world3" class="screen">
+  <div class="topbar">
+    <button class="iconbtn" id="w3-back" aria-label="Home">🏠</button>
+    <div class="worldtitle" id="w3-title">Furry's Garden · 3</div>
+    <button class="iconbtn" id="w3-replay" aria-label="Repeat">🔊</button>
+  </div>
+  <div class="acts" id="acts"></div>
+  <div class="trust" id="w3-trust">One small step every day 🌱</div>
+</section>
+
+<!-- ================= GAME: TAP & COUNT ================= -->
+<section id="game" class="screen">
+  <div class="topbar">
+    <button class="iconbtn" id="g-back" aria-label="Back">←</button>
+    <div class="paws" id="paws" aria-label="Progress"></div>
+    <button class="iconbtn" id="g-replay" aria-label="Repeat">🔊</button>
+  </div>
+  <div class="gamebubble" id="g-bubble">…</div>
+  <div id="field"></div>
+  <div id="askwrap">
+    <div class="opts" id="opts"></div>
+  </div>
+</section>
+
+<!-- ================= CELEBRATE ================= -->
+<section id="celebrate" class="screen">
+  <svg class="furry party" width="170" height="170" viewBox="0 0 200 200"><use href="#furrydog"/></svg>
+  <h2 id="c-title">Shabash! 🎉</h2>
+  <div class="sub" id="c-sub">You finished all 5 rounds!</div>
+  <div class="rowbtns">
+    <button class="midbtn gold" id="c-again">🔁 Play again</button>
+    <button class="midbtn" id="c-home">🏠 Home</button>
+  </div>
+</section>
+
+<script>
+/* =====================================================
+   LITTLE ARJUNS v1.0 — Module 1
+   Splash · Home · Age doors · EN/HI voice · Tap & Count
+   ParthSarthi · zero data · everything on-device
+===================================================== */
+
+/* ---------- state ---------- */
+const S = {
+  lang: localStorage.getItem('la_lang') || 'en',
+  screen: 'splash',
+  round: 0,
+  phase: 'tap',
+  tapped: 0,
+  lastLine: null
+};
+
+/* ---------- tiny helpers ---------- */
+const $ = id => document.getElementById(id);
+const shuffle = a => { for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; };
+
+function show(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  $(id).classList.add('active');
+  S.screen = id;
+}
+
+/* ---------- bilingual text ---------- */
+const T = {
+  part:      {en:'Part 1 of Life Learnings · Ages 3–8', hi:'जीवन शिक्षा का भाग 1 · उम्र 3–8'},
+  start:     {en:"Chalo! Let's Go 🐾",                  hi:'चलो! शुरू करें 🐾'},
+  trust:     {en:'🚫 No ads · 🔒 No data · ❤️ Made in India', hi:'🚫 कोई विज्ञापन नहीं · 🔒 कोई डेटा नहीं · ❤️ भारत में बना'},
+  welcome:   {en:'Namaste! I am Furry! Tap your age!',  hi:'नमस्ते! मैं हूँ फ़री! अपनी उम्र छुओ!'},
+  years:     {en:'years',  hi:'साल'},
+  soon:      {en:'Soon!',  hi:'जल्दी!'},
+  comingsoon:{en:'This door opens soon! You play in door three!', hi:'यह दरवाज़ा जल्दी खुलेगा! तुम तीन वाले दरवाज़े में खेलो!'},
+  w3title:   {en:"Furry's Garden · Age 3", hi:'फ़री का बगीचा · 3 साल'},
+  w3hello:   {en:"Yay! Let's play! Tap Number Play!", hi:'वाह! चलो खेलें! अंक खेल छुओ!'},
+  act_num:   {en:'Number Play',      hi:'अंक खेल'},
+  act_num_s: {en:'Tap and count!',   hi:'छुओ और गिनो!'},
+  act_words: {en:'Words & Rhymes',   hi:'शब्द और कविता'},
+  act_story: {en:'Story Time',       hi:'कहानी का समय'},
+  act_move:  {en:'Move & Breathe',   hi:'हिलो और साँस लो'},
+  act_bye:   {en:'Goodbye Mission',  hi:'अलविदा मिशन'},
+  locked_s:  {en:'Coming soon',      hi:'जल्दी आ रहा है'},
+  gseed:     {en:'One small step every day 🌱', hi:'हर दिन एक छोटा कदम 🌱'},
+  celeb:     {en:'Shabash! 🎉',      hi:'शाबाश! 🎉'},
+  celebsub:  {en:'You finished all five rounds!', hi:'तुमने पाँचों राउंड पूरे किए!'},
+  celebsay:  {en:'Shabash! You finished all the rounds! Furry is so happy! Now go hug your mummy or papa!', hi:'शाबाश! तुमने सारे राउंड पूरे किए! फ़री बहुत खुश है! अब जाओ, मम्मी या पापा को गले लगाओ!'},
+  again:     {en:'🔁 Play again',    hi:'🔁 फिर खेलो'},
+  home:      {en:'🏠 Home',          hi:'🏠 घर'},
+  tryagain:  {en:'Try again! You can do it!', hi:'फिर कोशिश करो! तुम कर सकते हो!'}
+};
+
+const NUM = {
+  en:['','one','two','three','four','five','six','seven','eight','nine','ten'],
+  hi:['','एक','दो','तीन','चार','पाँच','छह','सात','आठ','नौ','दस']
+};
+
+const PRAISE = {
+  en:['Wow! Great job!','Shabash! Super!','You did it! Amazing!','Wonderful! High five!','Fantastic! Furry is dancing!'],
+  hi:['वाह! बहुत बढ़िया!','शाबाश! कमाल कर दिया!','तुमने कर दिखाया!','वाह वाह! हाई फ़ाइव!','बहुत सुंदर! फ़री नाच रहा है!']
+};
+
+/* Tap & Count rounds: age-3 ramp */
+const ROUNDS = [
+  {emoji:'🥭', n:3, en:'mangoes',     hi:'आम'},
+  {emoji:'⚽', n:4, en:'balls',       hi:'गेंदें'},
+  {emoji:'⭐', n:5, en:'stars',       hi:'तारे'},
+  {emoji:'🌸', n:7, en:'flowers',     hi:'फूल'},
+  {emoji:'🦋', n:9, en:'butterflies', hi:'तितलियाँ'}
+];
+const tapLine = r => ({
+  en:`Tap all the ${r.en}!`,
+  hi:`सारे ${r.hi} छुओ!`
+});
+const askLine = r => ({
+  en:`How many ${r.en}?`,
+  hi:`कितने ${r.hi}?`
+});
+
+/* ---------- VOICE ENGINE ---------- */
+let VOICES = [];
+function loadVoices(){ VOICES = window.speechSynthesis ? speechSynthesis.getVoices() : []; }
+if('speechSynthesis' in window){
+  loadVoices();
+  speechSynthesis.onvoiceschanged = loadVoices;
+}
+
+function bestVoice(want){           // want: 'en-IN' | 'hi-IN'
+  if(!VOICES.length) loadVoices();
+  const family = want.slice(0,2).toLowerCase();
+  const cands = VOICES.filter(v => (v.lang||'').replace('_','-').toLowerCase().startsWith(family));
+  if(!cands.length) return null;
+  const score = v => {
+    const L=(v.lang||'').replace('_','-').toLowerCase(), N=(v.name||'').toLowerCase();
+    let s=0;
+    if(L===want.toLowerCase()) s+=6;
+    if(N.includes('google')) s+=4;
+    if(N.includes('natural')||N.includes('neural')||N.includes('network')) s+=2;
+    if(family==='en' && L==='en-gb') s+=1;   /* nearest to Indian English if en-IN absent */
+    return s;
+  };
+  return cands.sort((a,b)=>score(b)-score(a))[0];
+}
+
+function say(lineObj, opts = {}){
+  const text = lineObj[S.lang];
+  S.lastLine = lineObj;
+  if(!('speechSynthesis' in window)) return;
+  try{
+    speechSynthesis.cancel();
+    speechSynthesis.resume();
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang  = S.lang === 'hi' ? 'hi-IN' : 'en-IN';
+    const v = bestVoice(u.lang);
+    if(v) u.voice = v;
+    u.rate  = opts.rate  || 0.85;   /* slow & warm for little ears */
+    u.pitch = opts.pitch || 1.05;
+    speechSynthesis.speak(u);
+  }catch(e){}
+}
+const sayNum = n => say({en:NUM.en[n], hi:NUM.hi[n]}, {rate:0.9});
+
+/* ---------- FX ---------- */
+const PALETTE = ['#D98E1B','#0E6B63','#E2654B','#F3B93C','#7BB661','#5A8FD8'];
+function confetti(){
+  for(let i=0;i<42;i++){
+    const c=document.createElement('span');
+    c.className='confetti';
+    const sz=6+Math.random()*9;
+    c.style.cssText=`left:${Math.random()*100}vw;width:${sz}px;height:${sz*1.4}px;background:${PALETTE[i%PALETTE.length]};animation-delay:${Math.random()*0.25}s`;
+    document.body.appendChild(c);
+    c.addEventListener('animationend',()=>c.remove());
+  }
+}
+function flyStars(x,y){
+  for(let i=0;i<5;i++){
+    const s=document.createElement('span');
+    s.className='flystar';
+    s.textContent='⭐';
+    s.style.cssText=`left:${x-20+Math.random()*40}px;top:${y-10+Math.random()*20}px;animation-delay:${i*0.06}s`;
+    document.body.appendChild(s);
+    s.addEventListener('animationend',()=>s.remove());
+  }
+}
+
+/* ---------- LANGUAGE ---------- */
+function applyLang(){
+  $('lang-en').classList.toggle('on', S.lang==='en');
+  $('lang-hi').classList.toggle('on', S.lang==='hi');
+  $('sp-part').textContent  = T.part[S.lang];
+  $('startbtn').textContent = T.start[S.lang];
+  $('sp-trust').textContent = T.trust[S.lang];
+  $('home-bubble').textContent = T.welcome[S.lang];
+  $('home-trust').textContent  = T.trust[S.lang];
+  $('w3-title').textContent = T.w3title[S.lang];
+  $('w3-trust').textContent = T.gseed[S.lang];
+  $('c-title').textContent  = T.celeb[S.lang];
+  $('c-sub').textContent    = T.celebsub[S.lang];
+  $('c-again').textContent  = T.again[S.lang];
+  $('c-home').textContent   = T.home[S.lang];
+  buildDoors();
+  buildActs();
+  localStorage.setItem('la_lang', S.lang);
+}
+function setLang(l){
+  if(S.lang===l) return;
+  S.lang=l;
+  applyLang();
+  if(S.screen==='home') say(T.welcome);
+  if(S.screen==='world3') say(T.w3hello);
+}
+
+/* ---------- HOME DOORS ---------- */
+function buildDoors(){
+  const d=$('doors'); d.innerHTML='';
+  [3,4,5,6,7,8].forEach(age=>{
+    const open = age===3;
+    const b=document.createElement('button');
+    b.className='door '+(open?'open':'locked');
+    b.innerHTML=`<span class="num baloo">${open?age:'🔒'}</span>
+                 <span class="lbl">${open?age+' '+T.years[S.lang]:T.soon[S.lang]}</span>`;
+    b.setAttribute('aria-label', age+' '+T.years[S.lang]);
+    b.onclick=()=>{
+      if(open){ enterWorld3(); }
+      else{
+        b.classList.remove('wob'); void b.offsetWidth; b.classList.add('wob');
+        say(T.comingsoon);
+      }
+    };
+    d.appendChild(b);
+  });
+}
+
+/* ---------- WORLD 3 ---------- */
+const ACTS = [
+  {id:'num',   em:'🔢', t:'act_num',   s:'act_num_s', open:true},
+  {id:'words', em:'🎵', t:'act_words', s:'locked_s',  open:false},
+  {id:'story', em:'📖', t:'act_story', s:'locked_s',  open:false},
+  {id:'move',  em:'🧘', t:'act_move',  s:'locked_s',  open:false},
+  {id:'bye',   em:'🌙', t:'act_bye',   s:'locked_s',  open:false}
+];
+function buildActs(){
+  const a=$('acts'); a.innerHTML='';
+  ACTS.forEach(x=>{
+    const b=document.createElement('button');
+    b.className='act '+(x.open?'open':'locked');
+    b.innerHTML=`<span class="em">${x.em}</span>
+      <span><div class="t">${T[x.t][S.lang]}</div><div class="s">${T[x.s][S.lang]}</div></span>`;
+    b.onclick=()=>{
+      if(x.open){ startGame(); }
+      else{
+        b.classList.remove('wob'); void b.offsetWidth; b.classList.add('wob');
+        say(T.comingsoon);
+      }
+    };
+    a.appendChild(b);
+  });
+}
+function enterWorld3(){
+  show('world3');
+  say(T.w3hello);
+}
+
+/* ---------- TAP & COUNT ---------- */
+function startGame(){
+  S.round=0;
+  show('game');
+  buildPaws();
+  startRound();
+}
+function buildPaws(){
+  const p=$('paws'); p.innerHTML='';
+  for(let i=0;i<ROUNDS.length;i++){
+    const s=document.createElement('span');
+    s.textContent='🐾';
+    if(i<S.round) s.className='got';
+    p.appendChild(s);
+  }
+}
+function startRound(){
+  const r=ROUNDS[S.round];
+  S.phase='tap'; S.tapped=0;
+  $('askwrap').style.display='none';
+  $('field').style.display='grid';
+  $('g-bubble').textContent = tapLine(r)[S.lang];
+  say(tapLine(r));
+  /* place objects in random cells of a 4x4 grid */
+  const f=$('field'); f.innerHTML='';
+  const cells=shuffle([...Array(16).keys()]).slice(0, r.n);
+  for(let i=0;i<16;i++){
+    const cell=document.createElement('div');
+    cell.style.display='flex';cell.style.alignItems='center';cell.style.justifyContent='center';
+    if(cells.includes(i)){
+      const o=document.createElement('button');
+      o.className='obj';
+      o.textContent=r.emoji;
+      o.style.transform=`rotate(${(Math.random()*24-12).toFixed(0)}deg)`;
+      o.setAttribute('aria-label','tap');
+      o.onclick=(ev)=>tapObj(o,ev);
+      cell.appendChild(o);
+    }
+    f.appendChild(cell);
+  }
+}
+function tapObj(o,ev){
+  if(S.phase!=='tap' || o.dataset.done) return;
+  o.dataset.done='1';
+  S.tapped++;
+  sayNum(S.tapped);
+  const chip=document.createElement('div');
+  chip.className='chip';
+  chip.textContent=S.tapped;
+  o.replaceWith(chip);
+  if(S.tapped===ROUNDS[S.round].n){
+    setTimeout(ask, 700);
+  }
+}
+function ask(){
+  const r=ROUNDS[S.round];
+  S.phase='ask';
+  $('g-bubble').textContent = askLine(r)[S.lang];
+  say(askLine(r));
+  const wrap=$('askwrap'); wrap.style.display='flex';
+  const opts=$('opts'); opts.innerHTML='';
+  const set=[...new Set([Math.max(1,r.n-1), r.n, r.n+1])];
+  shuffle(set).forEach(v=>{
+    const b=document.createElement('button');
+    b.className='opt';
+    b.textContent=v;
+    b.onclick=(ev)=>answer(v===r.n, b, ev);
+    opts.appendChild(b);
+  });
+}
+function answer(ok, btn, ev){
+  if(S.phase!=='ask') return;
+  if(ok){
+    S.phase='done';
+    const r=ev.target.getBoundingClientRect();
+    flyStars(r.left+r.width/2, r.top);
+    confetti();
+    const p=PRAISE[S.lang][Math.floor(Math.random()*PRAISE[S.lang].length)];
+    $('g-bubble').textContent=p;
+    say({en:p, hi:p});
+    S.round++;
+    buildPaws();
+    setTimeout(()=>{
+      if(S.round>=ROUNDS.length){ celebrate(); }
+      else{ startRound(); }
+    }, 1900);
+  }else{
+    btn.classList.remove('no'); void btn.offsetWidth; btn.classList.add('no');
+    say(T.tryagain);
+  }
+}
+function celebrate(){
+  show('celebrate');
+  say(T.celebsay);
+}
+
+/* ---------- NAV / EVENTS ---------- */
+$('startbtn').onclick=()=>{
+  /* user gesture unlocks audio */
+  try{
+    const u=new SpeechSynthesisUtterance(' ');
+    u.volume=0; speechSynthesis.speak(u);
+  }catch(e){}
+  show('home');
+  setTimeout(()=>say(T.welcome), 350);
+};
+$('lang-en').onclick=()=>setLang('en');
+$('lang-hi').onclick=()=>setLang('hi');
+$('home-replay').onclick=()=>say(T.welcome);
+$('w3-back').onclick=()=>{ speechSynthesis && speechSynthesis.cancel(); show('home'); };
+$('w3-replay').onclick=()=>say(T.w3hello);
+$('g-back').onclick=()=>{ speechSynthesis && speechSynthesis.cancel(); show('world3'); };
+$('g-replay').onclick=()=>{ if(S.lastLine) say(S.lastLine); };
+$('c-again').onclick=()=>startGame();
+$('c-home').onclick=()=>{ show('home'); say(T.welcome); };
+
+/* ---------- boot ---------- */
+applyLang();
+</script>
+</body>
+</html>
