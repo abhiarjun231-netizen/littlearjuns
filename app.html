@@ -95,9 +95,7 @@
 
   /* ---------- splash ---------- */
   #splash{justify-content:center;text-align:center;gap:10px}
-  #splash .part{
-    color:var(--peacock);font-weight:700;letter-spacing:.04em;font-size:1rem;
-  }
+  #splash .part{color:var(--peacock);font-weight:700;letter-spacing:.04em;font-size:1rem}
   #splash h1{font-family:"Baloo 2",sans-serif;font-weight:800;font-size:2.35rem;line-height:1.08}
   #splash h1 .grow{color:var(--haldi)}
   #splash .credit{color:var(--ink-soft);font-size:.9rem;margin-top:2px}
@@ -136,8 +134,8 @@
   .wob{animation:wobble .45s ease}
   @keyframes wobble{0%,100%{transform:rotate(0)}25%{transform:rotate(-4deg)}75%{transform:rotate(4deg)}}
 
-  /* ---------- world 3 ---------- */
-  .worldtitle{font-family:"Baloo 2",sans-serif;font-weight:800;font-size:1.5rem;margin:4px 0 12px}
+  /* ---------- world 3 & menus ---------- */
+  .worldtitle{font-family:"Baloo 2",sans-serif;font-weight:800;font-size:1.4rem;margin:4px 0 12px;text-align:center}
   .acts{width:100%;max-width:440px;display:flex;flex-direction:column;gap:14px}
   .act{
     display:flex;align-items:center;gap:16px;background:var(--white);
@@ -150,6 +148,17 @@
   .act.open{border-color:var(--peacock);box-shadow:0 4px 0 var(--peacock)}
   .act.locked{opacity:.55}
   .act:active{transform:translateY(3px)}
+  .gamesgrid{
+    width:100%;max-width:440px;display:grid;grid-template-columns:1fr 1fr;gap:14px;
+  }
+  .gcard{
+    background:var(--white);border:2.5px solid var(--peacock);border-radius:22px;
+    min-height:128px;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    gap:6px;box-shadow:0 4px 0 var(--peacock);padding:10px;
+  }
+  .gcard .em{font-size:2.3rem}
+  .gcard .t{font-family:"Baloo 2",sans-serif;font-weight:800;font-size:1.05rem;text-align:center;line-height:1.15}
+  .gcard:active{transform:translateY(3px);box-shadow:0 2px 0 var(--peacock)}
 
   /* ---------- game ---------- */
   #game{padding-bottom:8px}
@@ -161,16 +170,19 @@
     font-family:"Baloo 2",sans-serif;font-weight:800;font-size:1.3rem;line-height:1.3;
     box-shadow:0 4px 0 rgba(38,50,75,.15);
   }
-  #field{
-    width:100%;max-width:520px;flex:1;min-height:300px;margin-top:14px;
-    display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:1fr;gap:6px;
+  .gamebubble .bignum{font-size:2.3rem;color:var(--haldi-deep);vertical-align:middle}
+  #stage{
+    width:100%;max-width:520px;flex:1;margin-top:14px;display:flex;flex-direction:column;
+  }
+
+  /* stage: tap & count */
+  .cfield{
+    flex:1;min-height:300px;display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:1fr;gap:6px;
     background:linear-gradient(#F2FAF3,#E7F4E4);
     border:2.5px solid var(--line);border-radius:26px;padding:14px;
   }
-  .obj{
-    font-size:2.6rem;display:flex;align-items:center;justify-content:center;
-    border-radius:20px;min-height:64px;transition:transform .15s;
-  }
+  .cell{display:flex;align-items:center;justify-content:center}
+  .obj{font-size:2.6rem;display:flex;align-items:center;justify-content:center;border-radius:20px;min-height:64px;min-width:64px;transition:transform .15s}
   .obj:active{transform:scale(1.2)}
   .chip{
     width:58px;height:58px;border-radius:50%;background:var(--haldi);
@@ -179,15 +191,64 @@
     box-shadow:0 3px 0 var(--haldi-deep);animation:popin .35s ease;
   }
   @keyframes popin{0%{transform:scale(.2)}70%{transform:scale(1.25)}100%{transform:scale(1)}}
-  #askwrap{width:100%;max-width:520px;display:none;flex-direction:column;gap:14px;margin-top:14px}
-  .opts{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+
+  /* stage: options rows/grids */
+  .opts3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:14px}
+  .opts2x2{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:14px;align-content:center}
   .opt{
     background:var(--white);border:3px solid var(--peacock);border-radius:24px;
     font-family:"Baloo 2",sans-serif;font-weight:800;font-size:2.4rem;color:var(--ink);
     min-height:92px;box-shadow:0 5px 0 var(--peacock);
+    display:flex;align-items:center;justify-content:center;
   }
+  .opt.big{min-height:120px;font-size:3rem}
   .opt:active{transform:translateY(3px);box-shadow:0 2px 0 var(--peacock)}
   .opt.no{animation:wobble .45s ease;border-color:var(--coral);box-shadow:0 5px 0 var(--coral)}
+
+  /* stage: shapes */
+  .shaperow{flex:1;display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;align-content:center}
+  .shapecard{
+    background:var(--white);border:3px solid var(--peacock);border-radius:24px;
+    min-height:130px;display:flex;align-items:center;justify-content:center;
+    box-shadow:0 5px 0 var(--peacock);
+  }
+  .shapecard:active{transform:translateY(3px)}
+  .shapecard.no{animation:wobble .45s ease;border-color:var(--coral);box-shadow:0 5px 0 var(--coral)}
+
+  /* stage: balloons */
+  .balloonwrap{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:18px;align-content:center;justify-items:center}
+  .balloon{
+    width:92px;height:112px;border-radius:50% 50% 50% 50% / 44% 44% 56% 56%;
+    position:relative;box-shadow:inset -8px -10px 0 rgba(0,0,0,.12);
+    border:none;
+  }
+  .balloon::before{
+    content:"";position:absolute;left:50%;bottom:-6px;transform:translateX(-50%);
+    border-left:7px solid transparent;border-right:7px solid transparent;
+    border-top:9px solid inherit;border-top-color:inherit;filter:brightness(.9);
+  }
+  .balloon::after{
+    content:"";position:absolute;left:50%;bottom:-40px;transform:translateX(-50%);
+    width:2.5px;height:36px;background:var(--ink-soft);border-radius:2px;
+  }
+  .balloon:active{transform:scale(1.08)}
+  .balloon.no{animation:wobble .45s ease}
+  .balloon.popped{animation:popaway .5s ease forwards}
+  @keyframes popaway{40%{transform:scale(1.35)}100%{transform:scale(0);opacity:0}}
+
+  /* stage: pattern train */
+  .trainwrap{flex:1;display:flex;flex-direction:column;justify-content:center;gap:26px}
+  .train{
+    display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;
+    background:linear-gradient(#F2FAF3,#E7F4E4);border:2.5px solid var(--line);
+    border-radius:26px;padding:18px 10px;font-size:2.4rem;
+  }
+  .train .qbox{
+    width:60px;height:60px;border:3px dashed var(--haldi);border-radius:16px;
+    display:flex;align-items:center;justify-content:center;
+    font-size:1.8rem;color:var(--haldi-deep);background:var(--haldi-soft);
+  }
+  .train .filled{animation:popin .35s ease}
 
   /* ---------- celebrate ---------- */
   #celebrate{justify-content:center;text-align:center;gap:14px}
@@ -222,30 +283,21 @@
 <svg width="0" height="0" style="position:absolute">
   <defs>
     <g id="furrydog">
-      <!-- tail -->
       <path class="tail" d="M34 138 Q8 120 16 96 Q34 112 44 126 Z" fill="#C77E1F"/>
-      <!-- body -->
       <ellipse cx="100" cy="150" rx="56" ry="38" fill="#E8A33D"/>
       <ellipse cx="100" cy="158" rx="30" ry="23" fill="#F5C36B"/>
-      <!-- front paws -->
       <ellipse cx="78" cy="184" rx="15" ry="9" fill="#F5C36B" stroke="#C77E1F" stroke-width="2"/>
       <ellipse cx="122" cy="184" rx="15" ry="9" fill="#F5C36B" stroke="#C77E1F" stroke-width="2"/>
-      <!-- collar -->
       <rect x="64" y="118" width="72" height="12" rx="6" fill="#0E6B63"/>
       <circle cx="100" cy="134" r="7" fill="#F3B93C" stroke="#B87310" stroke-width="2"/>
-      <!-- ears -->
       <ellipse cx="57" cy="60" rx="17" ry="30" fill="#C77E1F" transform="rotate(-24 57 60)"/>
       <ellipse cx="143" cy="60" rx="17" ry="30" fill="#C77E1F" transform="rotate(24 143 60)"/>
-      <!-- head -->
       <circle cx="100" cy="84" r="47" fill="#E8A33D"/>
-      <!-- muzzle -->
       <ellipse cx="100" cy="101" rx="24" ry="17" fill="#F7D9A0"/>
-      <!-- eyes -->
       <circle cx="82" cy="76" r="6.2" fill="#2B2013"/>
       <circle cx="118" cy="76" r="6.2" fill="#2B2013"/>
       <circle cx="84" cy="74" r="2" fill="#fff"/>
       <circle cx="120" cy="74" r="2" fill="#fff"/>
-      <!-- nose + smile + tongue -->
       <ellipse cx="100" cy="95" rx="8" ry="6" fill="#3A2C1A"/>
       <path d="M86 106 Q100 118 114 106" stroke="#3A2C1A" stroke-width="3.5" fill="none" stroke-linecap="round"/>
       <path d="M94 112 Q100 122 106 112 Q100 116 94 112 Z" fill="#E77A6E"/>
@@ -260,7 +312,7 @@
   <h1>Little Arjuns:<br>Learn and <span class="grow">Grow</span></h1>
   <div class="credit">by ParthSarthi 🇮🇳</div>
   <button class="bigbtn" id="startbtn">Chalo! Let's Go 🐾</button>
-  <div class="trust" id="sp-trust">🚫 No ads &nbsp;·&nbsp; 🔒 No data collection &nbsp;·&nbsp; ❤️ Made in India</div>
+  <div class="trust" id="sp-trust">🚫 No ads · 🔒 No data collection · ❤️ Made in India</div>
 </section>
 
 <!-- ================= HOME ================= -->
@@ -295,7 +347,18 @@
   <div class="trust" id="w3-trust">One small step every day 🌱</div>
 </section>
 
-<!-- ================= GAME: TAP & COUNT ================= -->
+<!-- ================= NUMBER PLAY MENU ================= -->
+<section id="numMenu" class="screen">
+  <div class="topbar">
+    <button class="iconbtn" id="nm-back" aria-label="Back">←</button>
+    <div class="worldtitle" id="nm-title">Number Play</div>
+    <button class="iconbtn" id="nm-replay" aria-label="Repeat">🔊</button>
+  </div>
+  <div class="gamesgrid" id="gamesgrid"></div>
+  <div class="trust" id="nm-trust">🐾</div>
+</section>
+
+<!-- ================= GAME ================= -->
 <section id="game" class="screen">
   <div class="topbar">
     <button class="iconbtn" id="g-back" aria-label="Back">←</button>
@@ -303,10 +366,7 @@
     <button class="iconbtn" id="g-replay" aria-label="Repeat">🔊</button>
   </div>
   <div class="gamebubble" id="g-bubble">…</div>
-  <div id="field"></div>
-  <div id="askwrap">
-    <div class="opts" id="opts"></div>
-  </div>
+  <div id="stage"></div>
 </section>
 
 <!-- ================= CELEBRATE ================= -->
@@ -316,14 +376,15 @@
   <div class="sub" id="c-sub">You finished all 5 rounds!</div>
   <div class="rowbtns">
     <button class="midbtn gold" id="c-again">🔁 Play again</button>
-    <button class="midbtn" id="c-home">🏠 Home</button>
+    <button class="midbtn" id="c-games">🎮 More games</button>
   </div>
 </section>
 
 <script>
 /* =====================================================
-   LITTLE ARJUNS v1.0 — Module 1
-   Splash · Home · Age doors · EN/HI voice · Tap & Count
+   LITTLE ARJUNS v1.0 — Module 2
+   + Number Play menu
+   + Find the Number · Shape Hunt · Colour Basket · Pattern Train
    ParthSarthi · zero data · everything on-device
 ===================================================== */
 
@@ -331,6 +392,7 @@
 const S = {
   lang: localStorage.getItem('la_lang') || 'en',
   screen: 'splash',
+  game: 'count',          /* count | find | shape | colour | pattern */
   round: 0,
   phase: 'tap',
   tapped: 0,
@@ -340,6 +402,7 @@ const S = {
 /* ---------- tiny helpers ---------- */
 const $ = id => document.getElementById(id);
 const shuffle = a => { for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; };
+const pick = a => a[Math.floor(Math.random()*a.length)];
 
 function show(id){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
@@ -359,18 +422,25 @@ const T = {
   w3title:   {en:"Furry's Garden · Age 3", hi:'फ़री का बगीचा · 3 साल'},
   w3hello:   {en:"Yay! Let's play! Tap Number Play!", hi:'वाह! चलो खेलें! अंक खेल छुओ!'},
   act_num:   {en:'Number Play',      hi:'अंक खेल'},
-  act_num_s: {en:'Tap and count!',   hi:'छुओ और गिनो!'},
+  act_num_s: {en:'5 games!',         hi:'5 खेल!'},
   act_words: {en:'Words & Rhymes',   hi:'शब्द और कविता'},
   act_story: {en:'Story Time',       hi:'कहानी का समय'},
   act_move:  {en:'Move & Breathe',   hi:'हिलो और साँस लो'},
   act_bye:   {en:'Goodbye Mission',  hi:'अलविदा मिशन'},
   locked_s:  {en:'Coming soon',      hi:'जल्दी आ रहा है'},
   gseed:     {en:'One small step every day 🌱', hi:'हर दिन एक छोटा कदम 🌱'},
+  nmhello:   {en:'Pick a game!',     hi:'एक खेल चुनो!'},
+  g_count:   {en:'Tap & Count',      hi:'छुओ और गिनो'},
+  g_find:    {en:'Find the Number',  hi:'अंक ढूँढो'},
+  g_shape:   {en:'Shape Hunt',       hi:'आकृति खोजो'},
+  g_colour:  {en:'Colour Basket',    hi:'रंग पहचानो'},
+  g_pattern: {en:'Pattern Train',    hi:'पैटर्न रेल'},
+  whatnext:  {en:'What comes next?', hi:'आगे क्या आएगा?'},
   celeb:     {en:'Shabash! 🎉',      hi:'शाबाश! 🎉'},
   celebsub:  {en:'You finished all five rounds!', hi:'तुमने पाँचों राउंड पूरे किए!'},
   celebsay:  {en:'Shabash! You finished all the rounds! Furry is so happy! Now go hug your mummy or papa!', hi:'शाबाश! तुमने सारे राउंड पूरे किए! फ़री बहुत खुश है! अब जाओ, मम्मी या पापा को गले लगाओ!'},
   again:     {en:'🔁 Play again',    hi:'🔁 फिर खेलो'},
-  home:      {en:'🏠 Home',          hi:'🏠 घर'},
+  moregames: {en:'🎮 More games',    hi:'🎮 और खेल'},
   tryagain:  {en:'Try again! You can do it!', hi:'फिर कोशिश करो! तुम कर सकते हो!'}
 };
 
@@ -384,23 +454,6 @@ const PRAISE = {
   hi:['वाह! बहुत बढ़िया!','शाबाश! कमाल कर दिया!','तुमने कर दिखाया!','वाह वाह! हाई फ़ाइव!','बहुत सुंदर! फ़री नाच रहा है!']
 };
 
-/* Tap & Count rounds: age-3 ramp */
-const ROUNDS = [
-  {emoji:'🥭', n:3, en:'mangoes',     hi:'आम'},
-  {emoji:'⚽', n:4, en:'balls',       hi:'गेंदें'},
-  {emoji:'⭐', n:5, en:'stars',       hi:'तारे'},
-  {emoji:'🌸', n:7, en:'flowers',     hi:'फूल'},
-  {emoji:'🦋', n:9, en:'butterflies', hi:'तितलियाँ'}
-];
-const tapLine = r => ({
-  en:`Tap all the ${r.en}!`,
-  hi:`सारे ${r.hi} छुओ!`
-});
-const askLine = r => ({
-  en:`How many ${r.en}?`,
-  hi:`कितने ${r.hi}?`
-});
-
 /* ---------- VOICE ENGINE ---------- */
 let VOICES = [];
 function loadVoices(){ VOICES = window.speechSynthesis ? speechSynthesis.getVoices() : []; }
@@ -408,8 +461,7 @@ if('speechSynthesis' in window){
   loadVoices();
   speechSynthesis.onvoiceschanged = loadVoices;
 }
-
-function bestVoice(want){           // want: 'en-IN' | 'hi-IN'
+function bestVoice(want){
   if(!VOICES.length) loadVoices();
   const family = want.slice(0,2).toLowerCase();
   const cands = VOICES.filter(v => (v.lang||'').replace('_','-').toLowerCase().startsWith(family));
@@ -420,12 +472,11 @@ function bestVoice(want){           // want: 'en-IN' | 'hi-IN'
     if(L===want.toLowerCase()) s+=6;
     if(N.includes('google')) s+=4;
     if(N.includes('natural')||N.includes('neural')||N.includes('network')) s+=2;
-    if(family==='en' && L==='en-gb') s+=1;   /* nearest to Indian English if en-IN absent */
+    if(family==='en' && L==='en-gb') s+=1;
     return s;
   };
   return cands.sort((a,b)=>score(b)-score(a))[0];
 }
-
 function say(lineObj, opts = {}){
   const text = lineObj[S.lang];
   S.lastLine = lineObj;
@@ -437,7 +488,7 @@ function say(lineObj, opts = {}){
     u.lang  = S.lang === 'hi' ? 'hi-IN' : 'en-IN';
     const v = bestVoice(u.lang);
     if(v) u.voice = v;
-    u.rate  = opts.rate  || 0.85;   /* slow & warm for little ears */
+    u.rate  = opts.rate  || 0.85;
     u.pitch = opts.pitch || 1.05;
     speechSynthesis.speak(u);
   }catch(e){}
@@ -478,12 +529,14 @@ function applyLang(){
   $('home-trust').textContent  = T.trust[S.lang];
   $('w3-title').textContent = T.w3title[S.lang];
   $('w3-trust').textContent = T.gseed[S.lang];
+  $('nm-title').textContent = T.act_num[S.lang];
   $('c-title').textContent  = T.celeb[S.lang];
   $('c-sub').textContent    = T.celebsub[S.lang];
   $('c-again').textContent  = T.again[S.lang];
-  $('c-home').textContent   = T.home[S.lang];
+  $('c-games').textContent  = T.moregames[S.lang];
   buildDoors();
   buildActs();
+  buildGames();
   localStorage.setItem('la_lang', S.lang);
 }
 function setLang(l){
@@ -492,6 +545,7 @@ function setLang(l){
   applyLang();
   if(S.screen==='home') say(T.welcome);
   if(S.screen==='world3') say(T.w3hello);
+  if(S.screen==='numMenu') say(T.nmhello);
 }
 
 /* ---------- HOME DOORS ---------- */
@@ -503,9 +557,8 @@ function buildDoors(){
     b.className='door '+(open?'open':'locked');
     b.innerHTML=`<span class="num baloo">${open?age:'🔒'}</span>
                  <span class="lbl">${open?age+' '+T.years[S.lang]:T.soon[S.lang]}</span>`;
-    b.setAttribute('aria-label', age+' '+T.years[S.lang]);
     b.onclick=()=>{
-      if(open){ enterWorld3(); }
+      if(open){ show('world3'); say(T.w3hello); }
       else{
         b.classList.remove('wob'); void b.offsetWidth; b.classList.add('wob');
         say(T.comingsoon);
@@ -531,7 +584,7 @@ function buildActs(){
     b.innerHTML=`<span class="em">${x.em}</span>
       <span><div class="t">${T[x.t][S.lang]}</div><div class="s">${T[x.s][S.lang]}</div></span>`;
     b.onclick=()=>{
-      if(x.open){ startGame(); }
+      if(x.open){ show('numMenu'); say(T.nmhello); }
       else{
         b.classList.remove('wob'); void b.offsetWidth; b.classList.add('wob');
         say(T.comingsoon);
@@ -540,110 +593,259 @@ function buildActs(){
     a.appendChild(b);
   });
 }
-function enterWorld3(){
-  show('world3');
-  say(T.w3hello);
+
+/* ---------- NUMBER PLAY MENU ---------- */
+const GAMES = [
+  {id:'count',   em:'🥭', t:'g_count'},
+  {id:'find',    em:'🔢', t:'g_find'},
+  {id:'shape',   em:'🔺', t:'g_shape'},
+  {id:'colour',  em:'🎈', t:'g_colour'},
+  {id:'pattern', em:'🚂', t:'g_pattern'}
+];
+function buildGames(){
+  const g=$('gamesgrid'); g.innerHTML='';
+  GAMES.forEach(x=>{
+    const b=document.createElement('button');
+    b.className='gcard';
+    b.innerHTML=`<span class="em">${x.em}</span><span class="t">${T[x.t][S.lang]}</span>`;
+    b.onclick=()=>startGame(x.id);
+    g.appendChild(b);
+  });
 }
 
-/* ---------- TAP & COUNT ---------- */
-function startGame(){
-  S.round=0;
+/* =====================================================
+   GAME FRAMEWORK — 5 rounds, paws, praise, no wrong-buzzer
+===================================================== */
+function startGame(id){
+  S.game=id; S.round=0;
   show('game');
   buildPaws();
   startRound();
 }
 function buildPaws(){
   const p=$('paws'); p.innerHTML='';
-  for(let i=0;i<ROUNDS.length;i++){
+  for(let i=0;i<5;i++){
     const s=document.createElement('span');
     s.textContent='🐾';
     if(i<S.round) s.className='got';
     p.appendChild(s);
   }
 }
-function startRound(){
-  const r=ROUNDS[S.round];
-  S.phase='tap'; S.tapped=0;
-  $('askwrap').style.display='none';
-  $('field').style.display='grid';
-  $('g-bubble').textContent = tapLine(r)[S.lang];
-  say(tapLine(r));
-  /* place objects in random cells of a 4x4 grid */
-  const f=$('field'); f.innerHTML='';
-  const cells=shuffle([...Array(16).keys()]).slice(0, r.n);
-  for(let i=0;i<16;i++){
-    const cell=document.createElement('div');
-    cell.style.display='flex';cell.style.alignItems='center';cell.style.justifyContent='center';
-    if(cells.includes(i)){
-      const o=document.createElement('button');
-      o.className='obj';
-      o.textContent=r.emoji;
-      o.style.transform=`rotate(${(Math.random()*24-12).toFixed(0)}deg)`;
-      o.setAttribute('aria-label','tap');
-      o.onclick=(ev)=>tapObj(o,ev);
-      cell.appendChild(o);
-    }
-    f.appendChild(cell);
-  }
-}
-function tapObj(o,ev){
-  if(S.phase!=='tap' || o.dataset.done) return;
-  o.dataset.done='1';
-  S.tapped++;
-  sayNum(S.tapped);
-  const chip=document.createElement('div');
-  chip.className='chip';
-  chip.textContent=S.tapped;
-  o.replaceWith(chip);
-  if(S.tapped===ROUNDS[S.round].n){
-    setTimeout(ask, 700);
-  }
-}
-function ask(){
-  const r=ROUNDS[S.round];
-  S.phase='ask';
-  $('g-bubble').textContent = askLine(r)[S.lang];
-  say(askLine(r));
-  const wrap=$('askwrap'); wrap.style.display='flex';
-  const opts=$('opts'); opts.innerHTML='';
-  const set=[...new Set([Math.max(1,r.n-1), r.n, r.n+1])];
-  shuffle(set).forEach(v=>{
-    const b=document.createElement('button');
-    b.className='opt';
-    b.textContent=v;
-    b.onclick=(ev)=>answer(v===r.n, b, ev);
-    opts.appendChild(b);
-  });
-}
-function answer(ok, btn, ev){
-  if(S.phase!=='ask') return;
-  if(ok){
-    S.phase='done';
+function bubble(html){ $('g-bubble').innerHTML = html; }
+
+function correct(ev){
+  S.phase='done';
+  if(ev && ev.target){
     const r=ev.target.getBoundingClientRect();
     flyStars(r.left+r.width/2, r.top);
-    confetti();
-    const p=PRAISE[S.lang][Math.floor(Math.random()*PRAISE[S.lang].length)];
-    $('g-bubble').textContent=p;
-    say({en:p, hi:p});
-    S.round++;
-    buildPaws();
-    setTimeout(()=>{
-      if(S.round>=ROUNDS.length){ celebrate(); }
-      else{ startRound(); }
-    }, 1900);
-  }else{
-    btn.classList.remove('no'); void btn.offsetWidth; btn.classList.add('no');
-    say(T.tryagain);
   }
+  confetti();
+  const p=PRAISE[S.lang][Math.floor(Math.random()*PRAISE[S.lang].length)];
+  bubble(p);
+  say({en:p, hi:p});
+  S.round++;
+  buildPaws();
+  setTimeout(()=>{
+    if(S.round>=5){ celebrate(); }
+    else{ startRound(); }
+  }, 1900);
+}
+function wrong(el){
+  el.classList.remove('no'); void el.offsetWidth; el.classList.add('no');
+  say(T.tryagain);
 }
 function celebrate(){
   show('celebrate');
   say(T.celebsay);
 }
+function startRound(){
+  S.phase='play';
+  const st=$('stage'); st.innerHTML='';
+  if(S.game==='count')   roundCount(st);
+  if(S.game==='find')    roundFind(st);
+  if(S.game==='shape')   roundShape(st);
+  if(S.game==='colour')  roundColour(st);
+  if(S.game==='pattern') roundPattern(st);
+}
+
+/* ---------- GAME 1: TAP & COUNT ---------- */
+const COUNT_ROUNDS = [
+  {emoji:'🥭', n:3, en:'mangoes',     hi:'आम'},
+  {emoji:'⚽', n:4, en:'balls',       hi:'गेंदें'},
+  {emoji:'⭐', n:5, en:'stars',       hi:'तारे'},
+  {emoji:'🌸', n:7, en:'flowers',     hi:'फूल'},
+  {emoji:'🦋', n:9, en:'butterflies', hi:'तितलियाँ'}
+];
+function roundCount(st){
+  const r=COUNT_ROUNDS[S.round];
+  S.tapped=0; S.phase='tap';
+  const line={en:`Tap all the ${r.en}!`, hi:`सारे ${r.hi} छुओ!`};
+  bubble(line[S.lang]); say(line);
+  const f=document.createElement('div'); f.className='cfield';
+  const cells=shuffle([...Array(16).keys()]).slice(0, r.n);
+  for(let i=0;i<16;i++){
+    const cell=document.createElement('div'); cell.className='cell';
+    if(cells.includes(i)){
+      const o=document.createElement('button');
+      o.className='obj'; o.textContent=r.emoji;
+      o.style.transform=`rotate(${(Math.random()*24-12).toFixed(0)}deg)`;
+      o.onclick=()=>{
+        if(S.phase!=='tap'||o.dataset.done) return;
+        o.dataset.done='1'; S.tapped++;
+        sayNum(S.tapped);
+        const chip=document.createElement('div');
+        chip.className='chip'; chip.textContent=S.tapped;
+        o.replaceWith(chip);
+        if(S.tapped===r.n) setTimeout(()=>askCount(r), 700);
+      };
+      cell.appendChild(o);
+    }
+    f.appendChild(cell);
+  }
+  st.appendChild(f);
+}
+function askCount(r){
+  S.phase='ask';
+  const line={en:`How many ${r.en}?`, hi:`कितने ${r.hi}?`};
+  bubble(line[S.lang]); say(line);
+  const st=$('stage');
+  const opts=document.createElement('div'); opts.className='opts3';
+  const set=[...new Set([Math.max(1,r.n-1), r.n, r.n+1])];
+  shuffle(set).forEach(v=>{
+    const b=document.createElement('button');
+    b.className='opt'; b.textContent=v;
+    b.onclick=(ev)=>{
+      if(S.phase!=='ask') return;
+      v===r.n ? correct(ev) : wrong(b);
+    };
+    opts.appendChild(b);
+  });
+  st.appendChild(opts);
+}
+
+/* ---------- GAME 2: FIND THE NUMBER ---------- */
+function roundFind(st){
+  S.phase='ask';
+  const max = S.round<2 ? 5 : 10;
+  const target = 1+Math.floor(Math.random()*max);
+  const line={en:`Tap number ${NUM.en[target]}!`, hi:`अंक ${NUM.hi[target]} छुओ!`};
+  bubble(`${line[S.lang]} <span class="bignum">${target}</span>`);
+  say(line);
+  const pool=new Set([target]);
+  while(pool.size<4) pool.add(1+Math.floor(Math.random()*max));
+  const grid=document.createElement('div'); grid.className='opts2x2';
+  shuffle([...pool]).forEach(v=>{
+    const b=document.createElement('button');
+    b.className='opt big'; b.textContent=v;
+    b.onclick=(ev)=>{
+      if(S.phase!=='ask') return;
+      v===target ? correct(ev) : wrong(b);
+    };
+    grid.appendChild(b);
+  });
+  st.appendChild(grid);
+}
+
+/* ---------- GAME 3: SHAPE HUNT ---------- */
+const SHAPES = [
+  {id:'circle',   en:'circle',   hi:'गोला'},
+  {id:'square',   en:'square',   hi:'चौकोर'},
+  {id:'triangle', en:'triangle', hi:'तिकोना'}
+];
+function shapeSVG(id, color){
+  if(id==='circle')   return `<svg width="86" height="86" viewBox="0 0 100 100"><circle cx="50" cy="50" r="38" fill="${color}"/></svg>`;
+  if(id==='square')   return `<svg width="86" height="86" viewBox="0 0 100 100"><rect x="14" y="14" width="72" height="72" rx="10" fill="${color}"/></svg>`;
+  return `<svg width="86" height="86" viewBox="0 0 100 100"><path d="M50 12 L90 86 L10 86 Z" fill="${color}" stroke="${color}" stroke-width="8" stroke-linejoin="round"/></svg>`;
+}
+function roundShape(st){
+  S.phase='ask';
+  const target=SHAPES[S.round % 3];
+  const line={en:`Find the ${target.en}!`, hi:`${target.hi} ढूँढो!`};
+  bubble(line[S.lang]); say(line);
+  const row=document.createElement('div'); row.className='shaperow';
+  shuffle([...SHAPES]).forEach(sh=>{
+    const b=document.createElement('button');
+    b.className='shapecard';
+    b.innerHTML=shapeSVG(sh.id, pick(PALETTE));
+    b.onclick=(ev)=>{
+      if(S.phase!=='ask') return;
+      sh.id===target.id ? correct(ev) : wrong(b);
+    };
+    row.appendChild(b);
+  });
+  st.appendChild(row);
+}
+
+/* ---------- GAME 4: COLOUR BASKET ---------- */
+const COLOURS = [
+  {id:'red',    hex:'#E14B4B', en:'red',    hi:'लाल'},
+  {id:'blue',   hex:'#3F76D4', en:'blue',   hi:'नीला'},
+  {id:'yellow', hex:'#F3C33C', en:'yellow', hi:'पीला'},
+  {id:'green',  hex:'#57A05A', en:'green',  hi:'हरा'},
+  {id:'orange', hex:'#EE8A33', en:'orange', hi:'नारंगी'},
+  {id:'purple', hex:'#8E5BC0', en:'purple', hi:'बैंगनी'},
+  {id:'pink',   hex:'#E97BB2', en:'pink',   hi:'गुलाबी'},
+  {id:'brown',  hex:'#9A6B43', en:'brown',  hi:'भूरा'}
+];
+function roundColour(st){
+  S.phase='ask';
+  const four=shuffle([...COLOURS]).slice(0,4);
+  const target=pick(four);
+  const line={en:`Pop the ${target.en} balloon!`, hi:`${target.hi} गुब्बारा फोड़ो!`};
+  bubble(line[S.lang]); say(line);
+  const wrap=document.createElement('div'); wrap.className='balloonwrap';
+  four.forEach(c=>{
+    const b=document.createElement('button');
+    b.className='balloon';
+    b.style.background=c.hex;
+    b.style.borderTopColor=c.hex;
+    b.setAttribute('aria-label', c.en);
+    b.onclick=(ev)=>{
+      if(S.phase!=='ask') return;
+      if(c.id===target.id){
+        b.classList.add('popped');
+        setTimeout(()=>correct(ev), 350);
+      } else wrong(b);
+    };
+    wrap.appendChild(b);
+  });
+  st.appendChild(wrap);
+}
+
+/* ---------- GAME 5: PATTERN TRAIN ---------- */
+const PAIRS = [
+  ['🍎','🍌'], ['🐶','🐱'], ['🔴','🔵'], ['⭐','❤️'], ['🥭','🍇'], ['🐘','🐵']
+];
+function roundPattern(st){
+  S.phase='ask';
+  const [A,B]=pick(PAIRS);
+  bubble(T.whatnext[S.lang]); say(T.whatnext);
+  const wrap=document.createElement('div'); wrap.className='trainwrap';
+  const train=document.createElement('div'); train.className='train';
+  train.innerHTML=`<span>🚂</span><span>${A}</span><span>${B}</span><span>${A}</span><span>${B}</span><span>${A}</span><span class="qbox" id="qbox">?</span>`;
+  wrap.appendChild(train);
+  const opts=document.createElement('div'); opts.className='opts3';
+  opts.style.gridTemplateColumns='1fr 1fr';
+  shuffle([A,B]).forEach(v=>{
+    const b=document.createElement('button');
+    b.className='opt'; b.textContent=v;
+    b.onclick=(ev)=>{
+      if(S.phase!=='ask') return;
+      if(v===B){
+        const q=$('qbox');
+        q.textContent=B; q.classList.add('filled');
+        q.style.borderStyle='solid';
+        correct(ev);
+      } else wrong(b);
+    };
+    opts.appendChild(b);
+  });
+  wrap.appendChild(opts);
+  st.appendChild(wrap);
+}
 
 /* ---------- NAV / EVENTS ---------- */
 $('startbtn').onclick=()=>{
-  /* user gesture unlocks audio */
   try{
     const u=new SpeechSynthesisUtterance(' ');
     u.volume=0; speechSynthesis.speak(u);
@@ -656,10 +858,12 @@ $('lang-hi').onclick=()=>setLang('hi');
 $('home-replay').onclick=()=>say(T.welcome);
 $('w3-back').onclick=()=>{ speechSynthesis && speechSynthesis.cancel(); show('home'); };
 $('w3-replay').onclick=()=>say(T.w3hello);
-$('g-back').onclick=()=>{ speechSynthesis && speechSynthesis.cancel(); show('world3'); };
+$('nm-back').onclick=()=>{ speechSynthesis && speechSynthesis.cancel(); show('world3'); };
+$('nm-replay').onclick=()=>say(T.nmhello);
+$('g-back').onclick=()=>{ speechSynthesis && speechSynthesis.cancel(); show('numMenu'); };
 $('g-replay').onclick=()=>{ if(S.lastLine) say(S.lastLine); };
-$('c-again').onclick=()=>startGame();
-$('c-home').onclick=()=>{ show('home'); say(T.welcome); };
+$('c-again').onclick=()=>startGame(S.game);
+$('c-games').onclick=()=>{ show('numMenu'); say(T.nmhello); };
 
 /* ---------- boot ---------- */
 applyLang();
