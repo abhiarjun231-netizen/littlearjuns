@@ -1,0 +1,19 @@
+{
+  "id": "/app",
+  "name": "Little Arjuns: Learn and Grow",
+  "short_name": "Little Arjuns",
+  "description": "Part 1 of Life Learnings (ages 3-8). Maths, language and values with Furry. No ads. No data collection. Made in India.",
+  "start_url": "/app",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#FDFBF5",
+  "theme_color": "#FDFBF5",
+  "lang": "en-IN",
+  "categories": ["education", "kids"],
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
