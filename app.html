@@ -35,7 +35,7 @@
     overflow:hidden;
     user-select:none;-webkit-user-select:none;
   }
-  button{font-family:inherit;border:none;background:none;cursor:pointer;color:inherit}
+  button{font-family:inherit;border:none;background:none;cursor:pointer;color:inherit;touch-action:manipulation}
 
   .screen{
     position:fixed;inset:0;display:none;flex-direction:column;align-items:center;
@@ -393,6 +393,16 @@
     font-size:1.3rem;display:flex;align-items:center;justify-content:center;color:#EAEFF9;
   }
 
+  /* name setup */
+  .nameinput{
+    font-family:"Baloo 2",sans-serif;font-weight:700;font-size:1.4rem;
+    padding:14px 18px;border:3px solid var(--peacock);border-radius:18px;
+    width:100%;max-width:320px;text-align:center;background:var(--white);color:var(--ink);
+    user-select:text;-webkit-user-select:text;
+  }
+  .nameinput:focus{outline:3px solid var(--haldi);outline-offset:2px}
+  .skipbtn{background:#8B94A8 !important;box-shadow:0 5px 0 #6A7288 !important}
+
   #celebrate{justify-content:center;text-align:center;gap:14px}
   #celebrate h2{font-family:"Baloo 2",sans-serif;font-weight:800;font-size:2.2rem}
   #celebrate .sub{font-size:1.15rem;font-weight:600;color:var(--ink-soft)}
@@ -459,6 +469,102 @@
       <ellipse cx="100" cy="95" rx="8" ry="6" fill="#3A2C1A"/>
       <path d="M90 108 Q100 114 110 108" stroke="#3A2C1A" stroke-width="3.5" fill="none" stroke-linecap="round"/>
     </g>
+    <g id="pose-dog">
+      <ellipse cx="100" cy="130" rx="72" ry="6" fill="#F1EADA"/>
+      <path d="M152 52 Q172 34 162 18 Q150 34 143 46 Z" fill="#C77E1F"/>
+      <ellipse cx="100" cy="82" rx="57" ry="22" fill="#E8A33D" transform="rotate(-26 100 82)"/>
+      <rect x="138" y="70" width="15" height="54" rx="7" fill="#E8A33D"/>
+      <rect x="155" y="74" width="14" height="50" rx="7" fill="#C77E1F"/>
+      <ellipse cx="146" cy="127" rx="12" ry="6" fill="#F5C36B"/>
+      <ellipse cx="162" cy="127" rx="11" ry="6" fill="#E8A33D"/>
+      <rect x="44" y="74" width="13" height="50" rx="6" fill="#E8A33D"/>
+      <rect x="60" y="77" width="13" height="47" rx="6" fill="#C77E1F"/>
+      <ellipse cx="50" cy="127" rx="11" ry="6" fill="#F5C36B"/>
+      <ellipse cx="67" cy="127" rx="10" ry="6" fill="#E8A33D"/>
+      <circle cx="40" cy="86" r="21" fill="#E8A33D"/>
+      <ellipse cx="54" cy="68" rx="9" ry="16" fill="#C77E1F" transform="rotate(32 54 68)"/>
+      <ellipse cx="30" cy="96" rx="11" ry="8" fill="#F7D9A0"/>
+      <circle cx="23" cy="98" r="3.5" fill="#3A2C1A"/>
+      <circle cx="37" cy="83" r="3" fill="#2B2013"/>
+    </g>
+    <g id="pose-cat">
+      <ellipse cx="100" cy="130" rx="72" ry="6" fill="#F1EADA"/>
+      <path d="M158 76 Q176 58 168 42 Q157 58 149 68 Z" fill="#C77E1F"/>
+      <path d="M48 106 C68 42 134 42 158 102 L140 106 C126 66 78 66 64 108 Z" fill="#E8A33D"/>
+      <rect x="52" y="100" width="12" height="26" rx="6" fill="#E8A33D"/>
+      <rect x="68" y="102" width="12" height="24" rx="6" fill="#C77E1F"/>
+      <rect x="126" y="102" width="12" height="24" rx="6" fill="#C77E1F"/>
+      <rect x="142" y="100" width="12" height="26" rx="6" fill="#E8A33D"/>
+      <ellipse cx="58" cy="127" rx="10" ry="5" fill="#F5C36B"/>
+      <ellipse cx="74" cy="127" rx="9" ry="5" fill="#E8A33D"/>
+      <ellipse cx="132" cy="127" rx="9" ry="5" fill="#E8A33D"/>
+      <ellipse cx="148" cy="127" rx="10" ry="5" fill="#F5C36B"/>
+      <circle cx="45" cy="102" r="18" fill="#E8A33D"/>
+      <ellipse cx="57" cy="86" rx="8" ry="14" fill="#C77E1F" transform="rotate(30 57 86)"/>
+      <ellipse cx="36" cy="110" rx="10" ry="7" fill="#F7D9A0"/>
+      <circle cx="30" cy="112" r="3" fill="#3A2C1A"/>
+      <circle cx="42" cy="99" r="3" fill="#2B2013"/>
+    </g>
+    <g id="pose-butterfly">
+      <ellipse cx="100" cy="130" rx="66" ry="6" fill="#F1EADA"/>
+      <path d="M66 102 Q50 126 96 128 L100 117 Q76 117 79 104 Z" fill="#E8A33D"/>
+      <path d="M134 102 Q150 126 104 128 L100 117 Q124 117 121 104 Z" fill="#C77E1F"/>
+      <ellipse cx="93" cy="123" rx="9" ry="6" fill="#F5C36B"/>
+      <ellipse cx="107" cy="123" rx="9" ry="6" fill="#F5C36B"/>
+      <ellipse cx="100" cy="88" rx="36" ry="30" fill="#E8A33D"/>
+      <ellipse cx="100" cy="96" rx="20" ry="16" fill="#F5C36B"/>
+      <rect x="70" y="90" width="10" height="32" rx="5" fill="#E8A33D" transform="rotate(20 75 106)"/>
+      <rect x="120" y="90" width="10" height="32" rx="5" fill="#E8A33D" transform="rotate(-20 125 106)"/>
+      <circle cx="86" cy="120" r="6" fill="#F5C36B"/>
+      <circle cx="114" cy="120" r="6" fill="#F5C36B"/>
+      <circle cx="100" cy="48" r="24" fill="#E8A33D"/>
+      <ellipse cx="78" cy="36" rx="8" ry="15" fill="#C77E1F" transform="rotate(-26 78 36)"/>
+      <ellipse cx="122" cy="36" rx="8" ry="15" fill="#C77E1F" transform="rotate(26 122 36)"/>
+      <circle cx="92" cy="44" r="3" fill="#2B2013"/>
+      <circle cx="108" cy="44" r="3" fill="#2B2013"/>
+      <ellipse cx="100" cy="54" rx="4.5" ry="3.5" fill="#3A2C1A"/>
+      <path d="M92 60 Q100 66 108 60" stroke="#3A2C1A" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    </g>
+    <g id="pose-tree">
+      <ellipse cx="100" cy="132" rx="46" ry="5" fill="#F1EADA"/>
+      <rect x="72" y="16" width="11" height="54" rx="5" fill="#E8A33D" transform="rotate(24 77 43)"/>
+      <rect x="117" y="16" width="11" height="54" rx="5" fill="#E8A33D" transform="rotate(-24 122 43)"/>
+      <circle cx="100" cy="13" r="8" fill="#F5C36B" stroke="#C77E1F" stroke-width="2"/>
+      <ellipse cx="100" cy="80" rx="24" ry="27" fill="#E8A33D"/>
+      <ellipse cx="100" cy="88" rx="14" ry="14" fill="#F5C36B"/>
+      <circle cx="100" cy="42" r="19" fill="#E8A33D"/>
+      <ellipse cx="85" cy="30" rx="7" ry="13" fill="#C77E1F" transform="rotate(-26 85 30)"/>
+      <ellipse cx="115" cy="30" rx="7" ry="13" fill="#C77E1F" transform="rotate(26 115 30)"/>
+      <circle cx="93" cy="40" r="2.8" fill="#2B2013"/>
+      <circle cx="107" cy="40" r="2.8" fill="#2B2013"/>
+      <ellipse cx="100" cy="48" rx="4" ry="3" fill="#3A2C1A"/>
+      <path d="M93 53 Q100 58 107 53" stroke="#3A2C1A" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <rect x="94" y="98" width="13" height="30" rx="6" fill="#E8A33D"/>
+      <ellipse cx="100" cy="130" rx="13" ry="6" fill="#F5C36B"/>
+      <path d="M96 100 L74 109 L96 118 Z" fill="#C77E1F"/>
+    </g>
+    <g id="pose-star">
+      <circle cx="28" cy="58" r="3" fill="#F3B93C"/>
+      <circle cx="172" cy="58" r="3" fill="#F3B93C"/>
+      <circle cx="100" cy="6" r="2.5" fill="#F3B93C"/>
+      <rect x="52" y="24" width="11" height="48" rx="5" fill="#E8A33D" transform="rotate(38 57 48)"/>
+      <rect x="137" y="24" width="11" height="48" rx="5" fill="#E8A33D" transform="rotate(-38 143 48)"/>
+      <circle cx="43" cy="25" r="7" fill="#F5C36B"/>
+      <circle cx="157" cy="25" r="7" fill="#F5C36B"/>
+      <rect x="66" y="84" width="12" height="48" rx="6" fill="#E8A33D" transform="rotate(24 72 108)"/>
+      <rect x="122" y="84" width="12" height="48" rx="6" fill="#E8A33D" transform="rotate(-24 128 108)"/>
+      <ellipse cx="57" cy="128" rx="11" ry="6" fill="#F5C36B"/>
+      <ellipse cx="143" cy="128" rx="11" ry="6" fill="#F5C36B"/>
+      <ellipse cx="100" cy="72" rx="24" ry="27" fill="#E8A33D"/>
+      <ellipse cx="100" cy="80" rx="14" ry="14" fill="#F5C36B"/>
+      <circle cx="100" cy="34" r="18" fill="#E8A33D"/>
+      <ellipse cx="86" cy="22" rx="7" ry="12" fill="#C77E1F" transform="rotate(-26 86 22)"/>
+      <ellipse cx="114" cy="22" rx="7" ry="12" fill="#C77E1F" transform="rotate(26 114 22)"/>
+      <circle cx="93" cy="32" r="2.8" fill="#2B2013"/>
+      <circle cx="107" cy="32" r="2.8" fill="#2B2013"/>
+      <ellipse cx="100" cy="40" rx="4" ry="3" fill="#3A2C1A"/>
+      <path d="M93 45 Q100 50 107 45" stroke="#3A2C1A" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    </g>
   </defs>
 </svg>
 
@@ -471,9 +577,17 @@
   <div class="trust" id="sp-trust">🚫 No ads · 🔒 No data collection · ❤️ Made in India</div>
 </section>
 
+<section id="nameSetup" class="screen" style="justify-content:center;gap:18px;text-align:center">
+  <div class="bubble" id="ns-title">What should Furry call you?</div>
+  <svg class="furry idle" width="130" height="130" viewBox="0 0 200 200"><use href="#furrydog"/></svg>
+  <input class="nameinput" id="ns-input" maxlength="14" autocomplete="off" autocapitalize="words">
+  <button class="bigbtn" id="ns-save">✅ Save</button>
+  <button class="midbtn skipbtn" id="ns-skip">Skip</button>
+</section>
+
 <section id="home" class="screen">
   <div class="topbar">
-    <div style="width:56px"></div>
+    <button class="iconbtn" id="name-edit" aria-label="My name">✏️</button>
     <div class="langwrap" role="group" aria-label="Language">
       <button class="langbtn on" id="lang-en">EN</button>
       <button class="langbtn" id="lang-hi">हिं</button>
@@ -646,7 +760,9 @@ const pick = a => a[Math.floor(Math.random()*a.length)];
 
 function show(id){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-  $(id).classList.add('active');
+  const el=$(id);
+  el.classList.add('active');
+  el.scrollTop=0;
   S.screen = id;
 }
 
@@ -689,6 +805,11 @@ const T = {
   g_freeze:  {en:'Freeze Dance',     hi:'फ़्रीज़ डांस'},
   g_breath:  {en:'Flower Breath',    hi:'फूल की साँस'},
   g_feel:    {en:'Feelings Faces',   hi:'भाव चेहरे'},
+  ns_title:  {en:'What should Furry call you?', hi:'फ़री तुम्हें क्या बुलाए?'},
+  ns_place:  {en:'Type your name…',  hi:'अपना नाम लिखो…'},
+  ns_save:   {en:'✅ Save',          hi:'✅ ठीक है'},
+  ns_skip:   {en:'Skip',             hi:'छोड़ो'},
+  pose_invite:{en:'Call Mumma or Papa! Copy Furry together!', hi:'मम्मा या पापा को बुलाओ! साथ मिलकर फ़री जैसे बनो!'},
   dance_go:  {en:'Dance, dance, dance!', hi:'नाचो, नाचो, नाचो!'},
   freeze_now:{en:'FREEZE! Be a statue!',  hi:'फ़्रीज़! मूर्ति बनो!'},
   breath_in: {en:'Smell the flower... breathe in...', hi:'फूल सूँघो... साँस अंदर...'},
@@ -798,6 +919,43 @@ function flyStars(x,y){
   }
 }
 
+/* ---------- NAME (on-device only) ---------- */
+function getName(){
+  try{ return (localStorage.getItem('la_name')||'').trim(); }catch(e){ return ''; }
+}
+function saveName(n){
+  try{ if(n) localStorage.setItem('la_name', n); }catch(e){}
+}
+function L_welcome(){
+  const n=getName();
+  return {
+    en: n ? `Namaste, ${n}! I am Furry! Tap your age!` : T.welcome.en,
+    hi: n ? `नमस्ते, ${n}! मैं हूँ फ़री! अपनी उम्र छुओ!` : T.welcome.hi
+  };
+}
+function L_sleep(){
+  const n=getName();
+  return {
+    en: n ? `Good night, ${n}! Shhh… Furry is sleeping. Go play in the real world! See you tomorrow!` : T.sleep_line.en,
+    hi: n ? `शुभ रात्रि, ${n}! श्श्श… फ़री सो रहा है। जाओ, असली दुनिया में खेलो! कल मिलेंगे!` : T.sleep_line.hi
+  };
+}
+function L_gbintro(){
+  const n=getName();
+  return {
+    en: n ? `Time to say bye-bye, ${n}! But first — something amazing!` : T.gb_intro.en,
+    hi: n ? `${n}, अब बाय-बाय का समय! पर पहले — कुछ कमाल का!` : T.gb_intro.hi
+  };
+}
+function L_celebsay(){
+  const n=getName();
+  if(!n) return T.celebsay;
+  return {
+    en: `Shabash, ${n}! `+T.celebsay.en.replace('Shabash! ',''),
+    hi: `शाबाश, ${n}! `+T.celebsay.hi.replace('शाबाश! ','')
+  };
+}
+
 /* ---------- LANGUAGE ---------- */
 function applyLang(){
   $('lang-en').classList.toggle('on', S.lang==='en');
@@ -805,7 +963,11 @@ function applyLang(){
   $('sp-part').textContent  = T.part[S.lang];
   $('startbtn').textContent = T.start[S.lang];
   $('sp-trust').textContent = T.trust[S.lang];
-  $('home-bubble').textContent = T.welcome[S.lang];
+  $('home-bubble').textContent = L_welcome()[S.lang];
+  $('ns-title').textContent = T.ns_title[S.lang];
+  $('ns-input').placeholder = T.ns_place[S.lang];
+  $('ns-save').textContent  = T.ns_save[S.lang];
+  $('ns-skip').textContent  = T.ns_skip[S.lang];
   $('home-trust').textContent  = T.trust[S.lang];
   $('w3-title').textContent = T.w3title[S.lang];
   $('w3-trust').textContent = T.gseed[S.lang];
@@ -833,7 +995,8 @@ function setLang(l){
   if(S.lang===l) return;
   S.lang=l;
   applyLang();
-  if(S.screen==='home') say(T.welcome);
+  if(S.screen==='home') say(L_welcome());
+  if(S.screen==='nameSetup') say(T.ns_title);
   if(S.screen==='world3') say(T.w3hello);
   if(S.screen==='numMenu'||S.screen==='wordsMenu') say(T.nmhello);
   if(S.screen==='rhymeMenu') say(T.pickrhyme);
@@ -971,7 +1134,9 @@ function correct(ev, opts={}){
     flyStars(r.left+r.width/2, r.top);
   }
   if(opts.confetti!==false) confetti();
-  const p=PRAISE[S.lang][Math.floor(Math.random()*PRAISE[S.lang].length)];
+  let p=PRAISE[S.lang][Math.floor(Math.random()*PRAISE[S.lang].length)];
+  const nm=getName();
+  if(nm && Math.random()<0.5) p = p.replace('!', `, ${nm}!`);
   bubble(p);
   say({en:p, hi:p});
   S.round++;
@@ -987,7 +1152,11 @@ function wrong(el){
 }
 function celebrate(){
   show('celebrate');
-  say(T.celebsay);
+  const nm=getName();
+  $('c-title').textContent = nm
+    ? (S.lang==='en' ? `Shabash, ${nm}! 🎉` : `शाबाश, ${nm}! 🎉`)
+    : T.celeb[S.lang];
+  say(L_celebsay());
 }
 function startRound(){
   S.phase='play';
@@ -1334,7 +1503,7 @@ const RHYMES = {
      ]}
   ]
 };
-const R = { rhyme:null, i:0, playing:false };
+const R = { rhyme:null, i:0, playing:false, tok:0 };
 
 function buildRhymeList(){
   const list=$('rhymelist'); list.innerHTML='';
@@ -1347,6 +1516,7 @@ function buildRhymeList(){
   });
 }
 function openRhyme(rh){
+  R.tok++;
   R.rhyme=rh; R.i=0; R.playing=true;
   $('rp-title').textContent = rh.em+' '+rh.title;
   const st=$('rhymestage'); st.innerHTML='';
@@ -1354,7 +1524,7 @@ function openRhyme(rh){
     const d=document.createElement('button');
     d.className='rline'; d.id='rl'+idx;
     d.innerHTML=`<span class="em">${ln.em}</span><span>${ln.t}</span>`;
-    d.onclick=()=>{ R.playing=false; speakRaw(ln.t, {rate:0.9}); highlight(idx); };
+    d.onclick=()=>{ R.tok++; R.playing=false; speakRaw(ln.t, {rate:0.9}); highlight(idx); };
     st.appendChild(d);
   });
   show('rhymePlay');
@@ -1368,6 +1538,7 @@ function highlight(idx){
 }
 function playLine(i){
   if(!R.playing || !R.rhyme) return;
+  const myTok=R.tok;
   if(i>=R.rhyme.lines.length){
     R.playing=false;
     document.querySelectorAll('.rline').forEach(el=>el.classList.add('done'));
@@ -1379,7 +1550,7 @@ function playLine(i){
   R.i=i;
   highlight(i);
   speakRaw(R.rhyme.lines[i].t, {rate:0.9, onend:()=>{
-    if(R.playing) setTimeout(()=>playLine(i+1), 420);
+    if(R.playing && R.tok===myTok) setTimeout(()=>{ if(R.tok===myTok) playLine(i+1); }, 420);
   }});
 }
 
@@ -1499,7 +1670,7 @@ function addStar(id){
   localStorage.setItem('la_stars', JSON.stringify([...s]));
 }
 
-const ST = { story:null, i:0, playing:false, phase:'read' };
+const ST = { story:null, i:0, playing:false, phase:'read', tok:0 };
 
 function buildStoryLists(){
   const stars=getStars();
@@ -1520,6 +1691,7 @@ function buildStoryLists(){
 }
 
 function openStory(st){
+  ST.tok++;
   ST.story=st; ST.i=0; ST.playing=true; ST.phase='read';
   $('st-title').textContent = st.em+' '+st.title[S.lang];
   $('st-choice').style.display='none';
@@ -1540,6 +1712,7 @@ function storyDots(i){
 }
 function playStoryLine(i){
   if(!ST.playing || !ST.story) return;
+  const myTok=ST.tok;
   const st=ST.story;
   if(i>=st.lines.length){ storyChoice(); return; }
   ST.i=i;
@@ -1549,7 +1722,7 @@ function playStoryLine(i){
   $('st-scene').classList.remove('big'); void $('st-scene').offsetWidth; $('st-scene').classList.add('big');
   $('st-line').textContent=ln[S.lang];
   speakRaw(ln[S.lang], {rate:0.82, onend:()=>{
-    if(ST.playing) setTimeout(()=>playStoryLine(i+1), 550);
+    if(ST.playing && ST.tok===myTok) setTimeout(()=>{ if(ST.tok===myTok) playStoryLine(i+1); }, 550);
   }});
 }
 function storyChoice(){
@@ -1594,25 +1767,34 @@ function storyChoice(){
 
 /* ---------- GAME: COPY FURRY (poses) ---------- */
 const POSES = [
-  {em:'🐶', line:{en:'Dog pose — like me! Hands down, hips up high! Hold — one, two, three!',
-                  hi:'कुत्ता आसन — मेरे जैसे! हाथ नीचे, कमर ऊपर! रुको — एक, दो, तीन!'}},
-  {em:'🐱', line:{en:'Cat pose! Hands and knees, round your back — meow! Hold — one, two, three!',
-                  hi:'बिल्ली आसन! हाथ और घुटने, पीठ गोल — म्याऊँ! रुको — एक, दो, तीन!'}},
-  {em:'🦋', line:{en:'Butterfly! Sit down, feet together, flap your wings! One, two, three!',
-                  hi:'तितली! बैठो, पैर जोड़ो, पंख हिलाओ! एक, दो, तीन!'}},
-  {em:'🌳', line:{en:'Tree pose! Stand on one leg, hands up like branches! Hold — one, two, three!',
-                  hi:'पेड़ आसन! एक पैर पर खड़े हो, हाथ ऊपर डाली जैसे! रुको — एक, दो, तीन!'}},
-  {em:'⭐', line:{en:'Star jump! Jump big like a shining star! One, two, three!',
-                  hi:'तारा कूद! चमकते तारे जैसे बड़ी छलाँग! एक, दो, तीन!'}}
+  {id:'dog', em:'🐶', line:{en:'Doggy pose — like me! Hands on the floor, bum up high! Woof woof! Hold — one, two, three!',
+                  hi:'कुत्ता बनो — मेरे जैसे! हाथ ज़मीन पर, कमर ऊपर! भौं भौं! रुको — एक, दो, तीन!'}},
+  {id:'cat', em:'🐱', line:{en:'Kitty pose! Hands and feet down, make your back round — meow! One, two, three!',
+                  hi:'बिल्ली बनो! हाथ-पैर नीचे, पीठ गोल करो — म्याऊँ! एक, दो, तीन!'}},
+  {id:'butterfly', em:'🦋', line:{en:'Butterfly! Sit down, feet touching feet, flap flap flap! One, two, three!',
+                  hi:'तितली बनो! बैठो, पैर से पैर मिलाओ, फड़-फड़-फड़! एक, दो, तीन!'}},
+  {id:'tree', em:'🌳', line:{en:'Tree pose! Stand tall, one foot up, hands high like a tree! Shhh — one, two, three!',
+                  hi:'पेड़ बनो! सीधे खड़े हो, एक पैर ऊपर, हाथ ऊपर पेड़ जैसे! श्श्श — एक, दो, तीन!'}},
+  {id:'star', em:'⭐', line:{en:'Star jump! Jump big, arms open wide — you are a star! One, two, three!',
+                  hi:'तारा बनो! बड़ी छलाँग, हाथ फैलाओ — तुम तारा हो! एक, दो, तीन!'}}
 ];
 let POSE_ORDER = [];
 function roundPoses(st){
   S.phase='do';
   if(S.round===0) POSE_ORDER = shuffle([...POSES]);
   const p=POSE_ORDER[S.round];
-  bubble(p.line[S.lang]); say(p.line, {rate:0.82});
+  bubble(p.line[S.lang]);
+  if(S.round===0){
+    speakRaw(T.pose_invite[S.lang], {rate:0.85, onend:()=>{
+      if(S.phase==='do' && S.game==='poses' && S.screen==='game') say(p.line, {rate:0.8});
+    }});
+    S.lastLine = p.line;
+  }else{
+    say(p.line, {rate:0.8});
+  }
   const wrap=document.createElement('div'); wrap.className='posewrap';
-  wrap.innerHTML=`<div class="poseem">${p.em}</div>`;
+  wrap.innerHTML=`<svg width="230" height="161" viewBox="0 0 200 140" aria-label="Furry shows the pose"><use href="#pose-${p.id}"/></svg>
+                  <div style="font-size:2rem">${p.em}</div>`;
   const btn=document.createElement('button');
   btn.className='micbtn';
   btn.textContent=T.didit[S.lang];
@@ -1806,9 +1988,9 @@ function gbRender(){
   if(GB.step===0){
     head.textContent='🌙';
     scene.textContent='🐶';
-    text.textContent=T.gb_intro[S.lang];
+    text.textContent=L_gbintro()[S.lang];
     btn.textContent=T.btn_wow[S.lang];
-    say(T.gb_intro);
+    say(L_gbintro());
   }
   if(GB.step===1){
     head.textContent=T.gb_wowhead[S.lang];
@@ -1833,9 +2015,9 @@ function goSleep(){
     s.style.cssText=`left:${Math.random()*100}vw;top:${Math.random()*100}vh;animation-delay:${(Math.random()*2.4).toFixed(2)}s`;
     stars.appendChild(s);
   }
-  $('sleep-line').textContent=T.sleep_line[S.lang];
+  $('sleep-line').textContent=L_sleep()[S.lang];
   show('sleep');
-  say(T.sleep_line, {rate:0.75, pitch:1.0});
+  say(L_sleep(), {rate:0.75, pitch:1.0});
 }
 
 /* ---------- NAV / EVENTS ---------- */
@@ -1844,57 +2026,92 @@ $('startbtn').onclick=()=>{
     const u=new SpeechSynthesisUtterance(' ');
     u.volume=0; speechSynthesis.speak(u);
   }catch(e){}
+  const needName = !getName() && !localStorage.getItem('la_nameskip');
+  if(needName){
+    show('nameSetup');
+    $('ns-input').value='';
+    setTimeout(()=>say(T.ns_title), 350);
+  }else{
+    show('home');
+    setTimeout(()=>say(L_welcome()), 350);
+  }
+};
+$('ns-save').onclick=()=>{
+  const v=$('ns-input').value.trim().slice(0,14);
+  if(v){
+    saveName(v);
+    try{ localStorage.removeItem('la_nameskip'); }catch(e){}
+    applyLang();
+    show('home');
+    say({en:`Wow! Hello, ${v}! I am Furry! Tap your age!`,
+         hi:`वाह! नमस्ते, ${v}! मैं हूँ फ़री! अपनी उम्र छुओ!`});
+  }else{
+    $('ns-skip').click();
+  }
+};
+$('ns-skip').onclick=()=>{
+  try{ localStorage.setItem('la_nameskip','1'); }catch(e){}
+  applyLang();
   show('home');
-  setTimeout(()=>say(T.welcome), 350);
+  say(L_welcome());
+};
+$('ns-input').addEventListener('keydown', e=>{ if(e.key==='Enter') $('ns-save').click(); });
+$('name-edit').onclick=()=>{
+  $('ns-input').value=getName();
+  show('nameSetup');
+  say(T.ns_title);
 };
 $('lang-en').onclick=()=>setLang('en');
 $('lang-hi').onclick=()=>setLang('hi');
-$('home-replay').onclick=()=>say(T.welcome);
-$('w3-back').onclick=()=>{ speechSynthesis && speechSynthesis.cancel(); show('home'); };
+$('home-replay').onclick=()=>say(L_welcome());
+$('w3-back').onclick=()=>{ window.speechSynthesis && window.speechSynthesis.cancel(); show('home'); };
 $('w3-replay').onclick=()=>say(T.w3hello);
-$('nm-back').onclick=()=>{ speechSynthesis && speechSynthesis.cancel(); show('world3'); };
+$('nm-back').onclick=()=>{ window.speechSynthesis && window.speechSynthesis.cancel(); show('world3'); };
 $('nm-replay').onclick=()=>say(T.nmhello);
-$('wm-back').onclick=()=>{ speechSynthesis && speechSynthesis.cancel(); show('world3'); };
+$('wm-back').onclick=()=>{ window.speechSynthesis && window.speechSynthesis.cancel(); show('world3'); };
 $('wm-replay').onclick=()=>say(T.nmhello);
-$('rm-back').onclick=()=>{ speechSynthesis && speechSynthesis.cancel(); show('wordsMenu'); };
+$('rm-back').onclick=()=>{ window.speechSynthesis && window.speechSynthesis.cancel(); show('wordsMenu'); };
 $('rm-replay').onclick=()=>say(T.pickrhyme);
 $('rp-back').onclick=()=>{
+  R.tok++;
   R.playing=false;
-  speechSynthesis && speechSynthesis.cancel();
+  window.speechSynthesis && window.speechSynthesis.cancel();
   show('rhymeMenu');
 };
-$('rp-replay').onclick=()=>{ if(R.rhyme){ R.playing=true; playLine(0); } };
-$('sm-back').onclick=()=>{ speechSynthesis && speechSynthesis.cancel(); show('world3'); };
+$('rp-replay').onclick=()=>{ if(R.rhyme){ R.tok++; R.playing=true; playLine(0); } };
+$('sm-back').onclick=()=>{ window.speechSynthesis && window.speechSynthesis.cancel(); show('world3'); };
 $('sm-replay').onclick=()=>say(T.pickstory);
 $('st-back').onclick=()=>{
+  ST.tok++;
   ST.playing=false;
-  speechSynthesis && speechSynthesis.cancel();
+  window.speechSynthesis && window.speechSynthesis.cancel();
   buildStoryLists();
   show('storyMenu');
 };
 $('st-replay').onclick=()=>{ if(ST.story) openStory(ST.story); };
 $('st-again').onclick=()=>{ if(ST.story) openStory(ST.story); };
 $('st-stories').onclick=()=>{
+  ST.tok++;
   ST.playing=false;
-  speechSynthesis && speechSynthesis.cancel();
+  window.speechSynthesis && window.speechSynthesis.cancel();
   buildStoryLists();
   show('storyMenu');
   say(T.pickstory);
 };
-$('gb-back').onclick=()=>{ speechSynthesis && speechSynthesis.cancel(); show('world3'); };
+$('gb-back').onclick=()=>{ window.speechSynthesis && window.speechSynthesis.cancel(); show('world3'); };
 $('gb-replay').onclick=()=>{ gbRender(); };
 $('gb-next').onclick=()=>{
   if(GB.step<2){ GB.step++; gbRender(); }
   else { goSleep(); }
 };
 $('sleep-home').onclick=()=>{
-  speechSynthesis && speechSynthesis.cancel();
+  window.speechSynthesis && window.speechSynthesis.cancel();
   show('home');
-  say(T.welcome);
+  say(L_welcome());
 };
-$('mm-back').onclick=()=>{ S.tok++; stopTune(); speechSynthesis && speechSynthesis.cancel(); show('world3'); };
+$('mm-back').onclick=()=>{ S.tok++; stopTune(); window.speechSynthesis && window.speechSynthesis.cancel(); show('world3'); };
 $('mm-replay').onclick=()=>say(T.nmhello);
-$('g-back').onclick=()=>{ S.tok++; stopTune(); speechSynthesis && speechSynthesis.cancel(); show(S.menu); };
+$('g-back').onclick=()=>{ S.tok++; stopTune(); window.speechSynthesis && window.speechSynthesis.cancel(); show(S.menu); };
 $('g-replay').onclick=()=>{ if(S.lastLine) say(S.lastLine); };
 $('c-again').onclick=()=>startGame(S.game);
 $('c-games').onclick=()=>{ show(S.menu); say(T.nmhello); };
