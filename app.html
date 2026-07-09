@@ -347,6 +347,52 @@
     .breathcircle{transition:none}
   }
 
+  /* goodbye & sleep */
+  .gbwrap{width:100%;max-width:520px;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px}
+  .gbscene{
+    width:100%;min-height:170px;display:flex;align-items:center;justify-content:center;
+    background:linear-gradient(#FFF8EA,#FDF1D8);
+    border:2.5px solid var(--line);border-radius:26px;font-size:5.4rem;
+  }
+  .gbscene .big{animation:popin .45s ease}
+  .gbhead{
+    font-family:"Baloo 2",sans-serif;font-weight:800;font-size:1.1rem;color:var(--peacock);
+    letter-spacing:.03em;
+  }
+  .gbtext{
+    width:100%;background:var(--white);border:2.5px solid var(--ink);
+    border-radius:20px;padding:14px 16px;text-align:center;
+    font-family:"Baloo 2",sans-serif;font-weight:700;font-size:1.3rem;line-height:1.35;
+    box-shadow:0 4px 0 rgba(38,50,75,.15);min-height:76px;
+    display:flex;align-items:center;justify-content:center;
+  }
+  #sleep{
+    background:linear-gradient(#141B33 0%, #1E2A4A 60%, #26324B 100%);
+    color:#EAEFF9;justify-content:center;text-align:center;gap:18px;
+  }
+  #sleep .sleepline{
+    font-family:"Baloo 2",sans-serif;font-weight:700;font-size:1.3rem;line-height:1.4;
+    max-width:340px;color:#EAEFF9;
+  }
+  #sleep .nightstars{position:fixed;inset:0;pointer-events:none;overflow:hidden}
+  #sleep .ns{position:absolute;font-size:1rem;opacity:.8;animation:twinkle 2.6s ease-in-out infinite}
+  @keyframes twinkle{0%,100%{opacity:.25}50%{opacity:.95}}
+  .furrywrap{position:relative}
+  .zzz{
+    position:absolute;top:-6px;right:-16px;
+    font-family:"Baloo 2",sans-serif;font-weight:800;color:#9FB4E8;font-size:1.5rem;
+    animation:zfloat 2.4s ease-in-out infinite;
+  }
+  .zzz.z2{right:-38px;top:-30px;font-size:1.1rem;animation-delay:.6s}
+  .zzz.z3{right:-56px;top:-52px;font-size:.85rem;animation-delay:1.2s}
+  @keyframes zfloat{0%,100%{transform:translateY(0);opacity:.5}50%{transform:translateY(-10px);opacity:1}}
+  .homesmall{
+    position:fixed;top:max(14px, env(safe-area-inset-top));left:18px;
+    min-width:52px;min-height:52px;border-radius:16px;
+    background:rgba(255,255,255,.12);border:2px solid rgba(255,255,255,.25);
+    font-size:1.3rem;display:flex;align-items:center;justify-content:center;color:#EAEFF9;
+  }
+
   #celebrate{justify-content:center;text-align:center;gap:14px}
   #celebrate h2{font-family:"Baloo 2",sans-serif;font-weight:800;font-size:2.2rem}
   #celebrate .sub{font-size:1.15rem;font-weight:600;color:var(--ink-soft)}
@@ -395,6 +441,23 @@
       <ellipse cx="100" cy="95" rx="8" ry="6" fill="#3A2C1A"/>
       <path d="M86 106 Q100 118 114 106" stroke="#3A2C1A" stroke-width="3.5" fill="none" stroke-linecap="round"/>
       <path d="M94 112 Q100 122 106 112 Q100 116 94 112 Z" fill="#E77A6E"/>
+    </g>
+    <g id="furrysleep">
+      <path d="M34 138 Q8 120 16 96 Q34 112 44 126 Z" fill="#C77E1F"/>
+      <ellipse cx="100" cy="150" rx="56" ry="38" fill="#E8A33D"/>
+      <ellipse cx="100" cy="158" rx="30" ry="23" fill="#F5C36B"/>
+      <ellipse cx="78" cy="184" rx="15" ry="9" fill="#F5C36B" stroke="#C77E1F" stroke-width="2"/>
+      <ellipse cx="122" cy="184" rx="15" ry="9" fill="#F5C36B" stroke="#C77E1F" stroke-width="2"/>
+      <rect x="64" y="118" width="72" height="12" rx="6" fill="#0E6B63"/>
+      <circle cx="100" cy="134" r="7" fill="#F3B93C" stroke="#B87310" stroke-width="2"/>
+      <ellipse cx="57" cy="60" rx="17" ry="30" fill="#C77E1F" transform="rotate(-24 57 60)"/>
+      <ellipse cx="143" cy="60" rx="17" ry="30" fill="#C77E1F" transform="rotate(24 143 60)"/>
+      <circle cx="100" cy="84" r="47" fill="#E8A33D"/>
+      <ellipse cx="100" cy="101" rx="24" ry="17" fill="#F7D9A0"/>
+      <path d="M75 77 Q82 82 89 77" stroke="#2B2013" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+      <path d="M111 77 Q118 82 125 77" stroke="#2B2013" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+      <ellipse cx="100" cy="95" rx="8" ry="6" fill="#3A2C1A"/>
+      <path d="M90 108 Q100 114 110 108" stroke="#3A2C1A" stroke-width="3.5" fill="none" stroke-linecap="round"/>
     </g>
   </defs>
 </svg>
@@ -513,6 +576,30 @@
   <div class="trust">🧘</div>
 </section>
 
+<section id="goodbye" class="screen">
+  <div class="topbar">
+    <button class="iconbtn" id="gb-back" aria-label="Back">←</button>
+    <div class="worldtitle" id="gb-title">🌙</div>
+    <button class="iconbtn" id="gb-replay" aria-label="Repeat">🔊</button>
+  </div>
+  <div class="gbwrap">
+    <div class="gbhead" id="gb-head"></div>
+    <div class="gbscene"><span class="big" id="gb-scene">🐶</span></div>
+    <div class="gbtext" id="gb-text">…</div>
+    <button class="bigbtn" id="gb-next">✨</button>
+  </div>
+</section>
+
+<section id="sleep" class="screen">
+  <div class="nightstars" id="nightstars"></div>
+  <button class="homesmall" id="sleep-home" aria-label="Home">🏠</button>
+  <div class="furrywrap">
+    <svg width="180" height="180" viewBox="0 0 200 200"><use href="#furrysleep"/></svg>
+    <span class="zzz">Z</span><span class="zzz z2">Z</span><span class="zzz z3">Z</span>
+  </div>
+  <div class="sleepline" id="sleep-line">Shhh…</div>
+</section>
+
 <section id="game" class="screen">
   <div class="topbar">
     <button class="iconbtn" id="g-back" aria-label="Back">←</button>
@@ -607,6 +694,15 @@ const T = {
   breath_in: {en:'Smell the flower... breathe in...', hi:'फूल सूँघो... साँस अंदर...'},
   breath_out:{en:'Blow the candle... breathe out...', hi:'मोमबत्ती बुझाओ... साँस बाहर...'},
   calm_end:  {en:'So calm, so peaceful. Shabash!',    hi:'कितना शांत, कितना सुंदर। शाबाश!'},
+  act_bye_s: {en:'Wow + mission!',   hi:'वाह + मिशन!'},
+  gb_intro:  {en:'Time to say bye-bye! But first — something amazing!', hi:'अब बाय-बाय का समय! पर पहले — कुछ कमाल का!'},
+  gb_wowhead:{en:'✨ Furry’s Wow! Did you know?', hi:'✨ फ़री का वाह! क्या तुम जानते हो?'},
+  gb_mishead:{en:'🎯 Your mission!', hi:'🎯 तुम्हारा मिशन!'},
+  gb_go:     {en:'Go do it now! Tell Mumma-Papa!', hi:'जाओ अभी करो! मम्मा-पापा को बताओ!'},
+  btn_wow:   {en:'✨ Wow!',          hi:'✨ वाह!'},
+  btn_mission:{en:'🎯 My mission!',  hi:'🎯 मेरा मिशन!'},
+  btn_night: {en:'🌙 Good night, Furry!', hi:'🌙 शुभ रात्रि, फ़री!'},
+  sleep_line:{en:'Shhh… Furry is sleeping. Go play in the real world! See you tomorrow!', hi:'श्श्श… फ़री सो रहा है। जाओ, असली दुनिया में खेलो! कल मिलेंगे!'},
   pickstory: {en:'Pick a story!',    hi:'एक कहानी चुनो!'},
   month_head:{en:'This month: Kindness ❤️', hi:'इस महीने: दया ❤️'},
   special_head:{en:'Special stories ✨',     hi:'ख़ास कहानियाँ ✨'},
@@ -769,7 +865,7 @@ const ACTS = [
   {id:'words', em:'🎵', t:'act_words', s:'act_words_s', open:true},
   {id:'story', em:'📖', t:'act_story', s:'act_story_s', open:true},
   {id:'move',  em:'🧘', t:'act_move',  s:'act_move_s',  open:true},
-  {id:'bye',   em:'🌙', t:'act_bye',   s:'locked_s',    open:false}
+  {id:'bye',   em:'🌙', t:'act_bye',   s:'act_bye_s',   open:true}
 ];
 function buildActs(){
   const a=$('acts'); a.innerHTML='';
@@ -783,6 +879,7 @@ function buildActs(){
       else if(x.id==='words'){ show('wordsMenu'); say(T.nmhello); }
       else if(x.id==='story'){ show('storyMenu'); buildStoryLists(); say(T.pickstory); }
       else if(x.id==='move'){ show('moveMenu'); say(T.nmhello); }
+      else if(x.id==='bye'){ openGoodbye(); }
       else{
         b.classList.remove('wob'); void b.offsetWidth; b.classList.add('wob');
         say(T.comingsoon);
@@ -1653,6 +1750,94 @@ function roundFeel(st){
   st.appendChild(grid);
 }
 
+/* =====================================================
+   MODULE 6 — GOODBYE MISSION 🌙 (Screen-to-Life Bridge)
+===================================================== */
+const WOWS = [
+  {em:'🐘', en:'Elephants say hello with their trunks!',      hi:'हाथी सूँड से नमस्ते करते हैं!'},
+  {em:'☀️', en:'The sun wakes up before you every day!',      hi:'सूरज रोज़ तुमसे पहले उठता है!'},
+  {em:'🦚', en:"The peacock is India's national bird!",       hi:'मोर भारत का राष्ट्रीय पक्षी है!'},
+  {em:'🐄', en:'Cows have best friends!',                     hi:'गायों की भी पक्की सहेलियाँ होती हैं!'},
+  {em:'🌙', en:'The moon changes shape every night!',         hi:'चाँद रोज़ रात अपना आकार बदलता है!'},
+  {em:'🐝', en:'Bees dance to talk to their friends!',        hi:'मधुमक्खियाँ नाचकर बातें करती हैं!'},
+  {em:'🌈', en:'Rainbows have seven colours!',                hi:'इंद्रधनुष में सात रंग होते हैं!'},
+  {em:'🐢', en:'Turtles carry their home on their back!',     hi:'कछुआ अपना घर पीठ पर रखता है!'},
+  {em:'🌻', en:'Sunflowers turn to look at the sun!',         hi:'सूरजमुखी सूरज की ओर मुड़ता है!'},
+  {em:'🐜', en:'Ants are tiny but super strong!',             hi:'चींटी छोटी पर बहुत ताकतवर होती है!'},
+  {em:'🦋', en:'Butterflies taste with their feet!',          hi:'तितलियाँ पैरों से स्वाद चखती हैं!'},
+  {em:'⭐', en:'Stars twinkle hello at night!',               hi:'तारे रात में टिमटिमाकर नमस्ते कहते हैं!'},
+  {em:'🐦', en:'Birds sing good-morning songs!',              hi:'चिड़ियाँ सुबह के गीत गाती हैं!'},
+  {em:'🥭', en:"Mango is India's national fruit!",            hi:'आम भारत का राष्ट्रीय फल है!'},
+  {em:'🐯', en:"The tiger is India's national animal!",       hi:'बाघ भारत का राष्ट्रीय पशु है!'},
+  {em:'💧', en:'Water has no colour — but it makes rainbows!', hi:'पानी का कोई रंग नहीं — पर वह इंद्रधनुष बनाता है!'}
+];
+const MISSIONS = [
+  {em:'🤗', en:'Give Mumma or Papa one big hug!',            hi:'मम्मा या पापा को एक बड़ी झप्पी दो!'},
+  {em:'💧', en:'Give water to a plant!',                     hi:'एक पौधे को पानी दो!'},
+  {em:'🧸', en:'Put one toy back in its home!',              hi:'एक खिलौना उसके घर में रखो!'},
+  {em:'🙏', en:'Say thank you to someone today!',            hi:'आज किसी को धन्यवाद कहो!'},
+  {em:'🐦', en:'Put some water outside for the birds!',      hi:'चिड़ियों के लिए बाहर पानी रखो!'},
+  {em:'👵', en:'Ask Dadi or Nani about her favourite game!', hi:'दादी या नानी से उनका पसंदीदा खेल पूछो!'},
+  {em:'🍎', en:'Share one bite of your food!',               hi:'अपने खाने से एक टुकड़ा बाँटो!'},
+  {em:'😊', en:'Make someone smile today!',                  hi:'आज किसी को हँसाओ!'},
+  {em:'🖐️', en:'Help carry one small thing!',               hi:'एक छोटी चीज़ उठाने में मदद करो!'},
+  {em:'🪥', en:'Brush your teeth like a hero tonight!',      hi:'आज रात हीरो की तरह दाँत माँजो!'},
+  {em:'🌸', en:'Find something beautiful outside and show Mumma!', hi:'बाहर कुछ सुंदर ढूँढो और मम्मा को दिखाओ!'},
+  {em:'📖', en:'Ask for one story before sleeping!',         hi:'सोने से पहले एक कहानी माँगो!'}
+];
+function dayOfYear(){
+  const now=new Date();
+  const start=new Date(now.getFullYear(),0,0);
+  return Math.floor((now-start)/86400000);
+}
+const GB = { step:0, wow:null, mission:null };
+
+function openGoodbye(){
+  GB.step=0;
+  const d=dayOfYear();
+  GB.wow     = WOWS[d % WOWS.length];
+  GB.mission = MISSIONS[d % MISSIONS.length];
+  show('goodbye');
+  gbRender();
+}
+function gbRender(){
+  const head=$('gb-head'), scene=$('gb-scene'), text=$('gb-text'), btn=$('gb-next');
+  scene.classList.remove('big'); void scene.offsetWidth; scene.classList.add('big');
+  if(GB.step===0){
+    head.textContent='🌙';
+    scene.textContent='🐶';
+    text.textContent=T.gb_intro[S.lang];
+    btn.textContent=T.btn_wow[S.lang];
+    say(T.gb_intro);
+  }
+  if(GB.step===1){
+    head.textContent=T.gb_wowhead[S.lang];
+    scene.textContent=GB.wow.em;
+    text.textContent=GB.wow[S.lang];
+    btn.textContent=T.btn_mission[S.lang];
+    say(GB.wow);
+  }
+  if(GB.step===2){
+    head.textContent=T.gb_mishead[S.lang];
+    scene.textContent=GB.mission.em;
+    text.textContent=GB.mission[S.lang];
+    btn.textContent=T.btn_night[S.lang];
+    say({en:GB.mission.en+' '+T.gb_go.en, hi:GB.mission.hi+' '+T.gb_go.hi});
+  }
+}
+function goSleep(){
+  const stars=$('nightstars'); stars.innerHTML='';
+  for(let i=0;i<18;i++){
+    const s=document.createElement('span');
+    s.className='ns'; s.textContent=pick(['✦','✧','⭐','·']);
+    s.style.cssText=`left:${Math.random()*100}vw;top:${Math.random()*100}vh;animation-delay:${(Math.random()*2.4).toFixed(2)}s`;
+    stars.appendChild(s);
+  }
+  $('sleep-line').textContent=T.sleep_line[S.lang];
+  show('sleep');
+  say(T.sleep_line, {rate:0.75, pitch:1.0});
+}
+
 /* ---------- NAV / EVENTS ---------- */
 $('startbtn').onclick=()=>{
   try{
@@ -1695,6 +1880,17 @@ $('st-stories').onclick=()=>{
   buildStoryLists();
   show('storyMenu');
   say(T.pickstory);
+};
+$('gb-back').onclick=()=>{ speechSynthesis && speechSynthesis.cancel(); show('world3'); };
+$('gb-replay').onclick=()=>{ gbRender(); };
+$('gb-next').onclick=()=>{
+  if(GB.step<2){ GB.step++; gbRender(); }
+  else { goSleep(); }
+};
+$('sleep-home').onclick=()=>{
+  speechSynthesis && speechSynthesis.cancel();
+  show('home');
+  say(T.welcome);
 };
 $('mm-back').onclick=()=>{ S.tok++; stopTune(); speechSynthesis && speechSynthesis.cancel(); show('world3'); };
 $('mm-replay').onclick=()=>say(T.nmhello);
