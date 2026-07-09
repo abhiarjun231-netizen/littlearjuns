@@ -286,6 +286,46 @@
   .rline.on{opacity:1;border-color:var(--haldi);background:var(--haldi-soft);transform:scale(1.02)}
   .rline.done{opacity:1}
 
+  /* story time */
+  .sechead{
+    width:100%;max-width:440px;font-family:"Baloo 2",sans-serif;font-weight:800;
+    font-size:1.05rem;color:var(--ink-soft);margin:10px 0 2px;text-align:left;
+  }
+  .storylist{width:100%;max-width:440px;display:flex;flex-direction:column;gap:12px}
+  .storycard{
+    display:flex;align-items:center;gap:16px;background:var(--white);
+    border:2.5px solid var(--haldi);border-radius:22px;padding:14px 18px;
+    min-height:76px;box-shadow:0 4px 0 var(--haldi);text-align:left;width:100%;
+  }
+  .storycard .em{font-size:2rem}
+  .storycard .t{font-family:"Baloo 2",sans-serif;font-weight:800;font-size:1.12rem;flex:1}
+  .storycard .star{font-size:1.3rem}
+  .storycard:active{transform:translateY(3px)}
+  #storyPlay{padding-bottom:10px}
+  .scene{
+    width:100%;max-width:520px;flex:1;min-height:200px;
+    display:flex;align-items:center;justify-content:center;
+    background:linear-gradient(#FFF8EA,#FDF1D8);
+    border:2.5px solid var(--line);border-radius:26px;margin-top:12px;
+    font-size:6rem;
+  }
+  .scene .big{animation:popin .45s ease}
+  .linecard{
+    width:100%;max-width:520px;background:var(--white);border:2.5px solid var(--ink);
+    border-radius:20px;padding:14px 16px;text-align:center;margin-top:14px;
+    font-family:"Baloo 2",sans-serif;font-weight:700;font-size:1.3rem;line-height:1.35;
+    box-shadow:0 4px 0 rgba(38,50,75,.15);min-height:76px;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .dots{display:flex;gap:7px;margin-top:12px;justify-content:center}
+  .dot{width:11px;height:11px;border-radius:50%;background:var(--line)}
+  .dot.on{background:var(--haldi)}
+  .dot.done{background:var(--peacock)}
+  .choicegrid{
+    width:100%;max-width:520px;display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px;
+  }
+  .choicegrid .piccard{min-height:130px;font-size:3rem}
+
   #celebrate{justify-content:center;text-align:center;gap:14px}
   #celebrate h2{font-family:"Baloo 2",sans-serif;font-weight:800;font-size:2.2rem}
   #celebrate .sub{font-size:1.15rem;font-weight:600;color:var(--ink-soft)}
@@ -413,6 +453,35 @@
   <div class="rhymestage" id="rhymestage"></div>
 </section>
 
+<section id="storyMenu" class="screen">
+  <div class="topbar">
+    <button class="iconbtn" id="sm-back" aria-label="Back">←</button>
+    <div class="worldtitle" id="sm-title">Story Time</div>
+    <button class="iconbtn" id="sm-replay" aria-label="Repeat">🔊</button>
+  </div>
+  <div class="sechead" id="sm-month">This month: Kindness ❤️</div>
+  <div class="storylist" id="storylist-value"></div>
+  <div class="sechead" id="sm-special">Special stories ✨</div>
+  <div class="storylist" id="storylist-special"></div>
+  <div class="trust">📖</div>
+</section>
+
+<section id="storyPlay" class="screen">
+  <div class="topbar">
+    <button class="iconbtn" id="st-back" aria-label="Back">←</button>
+    <div class="worldtitle" id="st-title">📖</div>
+    <button class="iconbtn" id="st-replay" aria-label="Again">🔁</button>
+  </div>
+  <div class="scene"><span class="big" id="st-scene">🐶</span></div>
+  <div class="linecard" id="st-line">…</div>
+  <div class="dots" id="st-dots"></div>
+  <div class="choicegrid" id="st-choice" style="display:none"></div>
+  <div class="rowbtns" id="st-end" style="display:none">
+    <button class="midbtn gold" id="st-again">🔁</button>
+    <button class="midbtn" id="st-stories">📖</button>
+  </div>
+</section>
+
 <section id="game" class="screen">
   <div class="topbar">
     <button class="iconbtn" id="g-back" aria-label="Back">←</button>
@@ -495,6 +564,12 @@ const T = {
   saidit:    {en:'🎤 I said it!',    hi:'🎤 मैंने बोला!'},
   didit:     {en:'✅ I did it!',     hi:'✅ मैंने किया!'},
   pickrhyme: {en:'Pick a rhyme!',    hi:'एक कविता चुनो!'},
+  act_story_s:{en:'8 stories!',      hi:'8 कहानियाँ!'},
+  pickstory: {en:'Pick a story!',    hi:'एक कहानी चुनो!'},
+  month_head:{en:'This month: Kindness ❤️', hi:'इस महीने: दया ❤️'},
+  special_head:{en:'Special stories ✨',     hi:'ख़ास कहानियाँ ✨'},
+  thinkagain:{en:'Hmm, think! Which one makes a happy heart?', hi:'हम्म, सोचो! किससे दिल खुश होता है?'},
+  btn_stories:{en:'📖 Stories',      hi:'📖 कहानियाँ'},
   celeb:     {en:'Shabash! 🎉',      hi:'शाबाश! 🎉'},
   celebsub:  {en:'You finished all five rounds!', hi:'तुमने पाँचों राउंड पूरे किए!'},
   celebsay:  {en:'Shabash! You finished all the rounds! Furry is so happy! Now go hug your mummy or papa!', hi:'शाबाश! तुमने सारे राउंड पूरे किए! फ़री बहुत खुश है! अब जाओ, मम्मी या पापा को गले लगाओ!'},
@@ -599,6 +674,10 @@ function applyLang(){
   $('nm-title').textContent = T.act_num[S.lang];
   $('wm-title').textContent = T.act_words[S.lang];
   $('rm-title').textContent = T.g_rhyme[S.lang];
+  $('sm-title').textContent = T.act_story[S.lang];
+  $('sm-month').textContent = T.month_head[S.lang];
+  $('sm-special').textContent = T.special_head[S.lang];
+  buildStoryLists();
   $('c-title').textContent  = T.celeb[S.lang];
   $('c-sub').textContent    = T.celebsub[S.lang];
   $('c-again').textContent  = T.again[S.lang];
@@ -644,7 +723,7 @@ function buildDoors(){
 const ACTS = [
   {id:'num',   em:'🔢', t:'act_num',   s:'act_num_s',   open:true},
   {id:'words', em:'🎵', t:'act_words', s:'act_words_s', open:true},
-  {id:'story', em:'📖', t:'act_story', s:'locked_s',    open:false},
+  {id:'story', em:'📖', t:'act_story', s:'act_story_s', open:true},
   {id:'move',  em:'🧘', t:'act_move',  s:'locked_s',    open:false},
   {id:'bye',   em:'🌙', t:'act_bye',   s:'locked_s',    open:false}
 ];
@@ -658,6 +737,7 @@ function buildActs(){
     b.onclick=()=>{
       if(x.id==='num'){ show('numMenu'); say(T.nmhello); }
       else if(x.id==='words'){ show('wordsMenu'); say(T.nmhello); }
+      else if(x.id==='story'){ show('storyMenu'); buildStoryLists(); say(T.pickstory); }
       else{
         b.classList.remove('wob'); void b.offsetWidth; b.classList.add('wob');
         say(T.comingsoon);
@@ -1140,6 +1220,211 @@ function playLine(i){
   }});
 }
 
+/* =====================================================
+   MODULE 4 — STORY TIME ❤️ (Sanskar · Month 1: Kindness/Daya)
+===================================================== */
+const STORIES = {
+  value: [
+    {id:'bird', em:'🐦', title:{en:'The Thirsty Bird', hi:'प्यासी चिड़िया'},
+     lines:[
+       {em:'☀️',   en:'It is a hot, hot day.',            hi:'बहुत गर्मी का दिन है।'},
+       {em:'🐦',   en:'A little bird is thirsty.',         hi:'छोटी चिड़िया प्यासी है।'},
+       {em:'💧',   en:'"Cheep cheep! Water, please!"',     hi:'"चीं चीं! पानी दो!"'},
+       {em:'🐶💧', en:'Furry brings a bowl of water.',     hi:'फ़री पानी की कटोरी लाता है।'},
+       {em:'🐦💦', en:'Glug, glug, glug! The bird drinks.', hi:'गट, गट, गट! चिड़िया पानी पीती है।'},
+       {em:'🎵',   en:'The bird sings a happy song!',      hi:'चिड़िया खुशी का गाना गाती है!'}
+     ],
+     q:{en:'Show me the kind one!', hi:'दयालु वाला दिखाओ!'},
+     opts:[{em:'🐶💧', ok:true},{em:'🐶🚶'}],
+     val:{en:'That is kindness!', hi:'यह है दया!'}},
+    {id:'teddy', em:'🧸', title:{en:'The Fallen Teddy', hi:'गिरा हुआ टेडी'},
+     lines:[
+       {em:'🧸',   en:'Baby Meethi drops her teddy.',  hi:'बेबी मीठी का टेडी गिर गया।'},
+       {em:'😢',   en:'"Waah, waah!" Meethi cries.',   hi:'"वाँ, वाँ!" मीठी रोती है।'},
+       {em:'🐶💨', en:'Furry runs fast!',              hi:'फ़री दौड़कर आता है!'},
+       {em:'🧸',   en:'He picks up the teddy.',        hi:'वह टेडी उठाता है।'},
+       {em:'🐶🧸', en:'"Here you go, Meethi!"',        hi:'"यह लो, मीठी!"'},
+       {em:'😊',   en:'Meethi smiles. Thank you, Furry!', hi:'मीठी मुस्कुराती है। धन्यवाद, फ़री!'}
+     ],
+     q:{en:'Show me the kind one!', hi:'दयालु वाला दिखाओ!'},
+     opts:[{em:'🐶🧸', ok:true},{em:'🐶🚶'}],
+     val:{en:'That is kindness!', hi:'यह है दया!'}},
+    {id:'mango', em:'🥭', title:{en:'Half and Half', hi:'आधा-आधा'},
+     lines:[
+       {em:'🥭',     en:'Furry has one sweet mango.',        hi:'फ़री के पास एक मीठा आम है।'},
+       {em:'🐱',     en:'"Meow!" Little cat is hungry.',      hi:'"म्याऊँ!" छोटी बिल्ली भूखी है।'},
+       {em:'🥭🥭',   en:'Furry breaks it — half and half!',   hi:'फ़री आम तोड़ता है — आधा-आधा!'},
+       {em:'🐱🥭',   en:'One half for cat, one for Furry.',   hi:'आधा बिल्ली का, आधा फ़री का।'},
+       {em:'😋',     en:'Yum, yum, yum!',                     hi:'मज़ा आ गया!'},
+       {em:'😊😊',   en:'Sharing makes two smiles!',          hi:'बाँटने से दो मुस्कान!'}
+     ],
+     q:{en:'Show me the kind one!', hi:'दयालु वाला दिखाओ!'},
+     opts:[{em:'🐱🥭', ok:true},{em:'🙅🥭'}],
+     val:{en:'That is kindness!', hi:'यह है दया!'}},
+    {id:'gentle', em:'🐕', title:{en:'Gentle Hands', hi:'नरम हाथ'},
+     lines:[
+       {em:'🐕',    en:'Look! A tiny puppy.',                hi:'देखो! नन्हा पिल्ला।'},
+       {em:'🤗',    en:'He is very, very small.',            hi:'वह बहुत छोटा है।'},
+       {em:'🖐️🐕', en:'Rohan pats him gently. Soft, soft.', hi:'रोहन उसे धीरे से सहलाता है। नरम, नरम।'},
+       {em:'🙅',    en:'No pulling ears! No, no!',           hi:'कान नहीं खींचते! ना, ना!'},
+       {em:'🐕💛', en:'The puppy wags his tail!',            hi:'पिल्ला पूँछ हिलाता है!'},
+       {em:'🖐️❤️', en:'Gentle hands are kind hands.',       hi:'नरम हाथ, दयालु हाथ।'}
+     ],
+     q:{en:'Show me the kind one!', hi:'दयालु वाला दिखाओ!'},
+     opts:[{em:'🖐️🐕', ok:true},{em:'✊'}],
+     val:{en:'That is kindness!', hi:'यह है दया!'}}
+  ],
+  special: [
+    {id:'askfirst', em:'🛡️', title:{en:'Ask First!', hi:'पहले पूछो!'},
+     lines:[
+       {em:'🌳',   en:'Furry sees a big park.',              hi:'फ़री को बड़ा पार्क दिखता है।'},
+       {em:'⚽',   en:'He wants to go and play!',            hi:'वह खेलना चाहता है!'},
+       {em:'🐶👩', en:'But first — ask Mumma!',              hi:'पर पहले — मम्मा से पूछो!'},
+       {em:'🙏',   en:'"Mumma, may I go?"',                  hi:'"मम्मा, मैं जाऊँ?"'},
+       {em:'👩🐶', en:'Mumma says, "Yes! I will come too."', hi:'मम्मा कहती हैं, "हाँ! मैं भी चलूँगी।"'},
+       {em:'✅',   en:'Always ask first. Safe and smart!',   hi:'हमेशा पहले पूछो। सुरक्षित और समझदार!'}
+     ],
+     q:{en:'What should Furry do?', hi:'फ़री को क्या करना चाहिए?'},
+     opts:[{em:'🐶👩', ok:true},{em:'🐶💨'}],
+     val:{en:'Ask first! Safe and smart!', hi:'पहले पूछो! सुरक्षित और समझदार!'}},
+    {id:'flag', em:'🇮🇳', title:{en:'My Flag', hi:'मेरा झंडा'},
+     lines:[
+       {em:'🇮🇳',      en:'This is our flag.',                    hi:'यह हमारा झंडा है।'},
+       {em:'🧡🤍💚',   en:'Kesari, white, and green.',            hi:'केसरी, सफ़ेद, और हरा।'},
+       {em:'🔵',       en:'In the middle, a blue wheel.',         hi:'बीच में नीला चक्र।'},
+       {em:'🧍',       en:'When the anthem plays, we stand still.', hi:'जब राष्ट्रगान बजे, हम सीधे खड़े होते हैं।'},
+       {em:'🌳',       en:'Like a tall, still tree!',             hi:'लंबे, शांत पेड़ जैसे!'},
+       {em:'🇮🇳❤️',   en:'I love my India!',                     hi:'मुझे मेरा भारत प्यारा है!'}
+     ],
+     q:{en:'Anthem time! Show me!', hi:'राष्ट्रगान का समय! दिखाओ!'},
+     opts:[{em:'🧍🇮🇳', ok:true},{em:'🏃'}],
+     val:{en:'I love my India!', hi:'मुझे मेरा भारत प्यारा है!'}},
+    {id:'food', em:'🫓', title:{en:'Thank You, Food!', hi:'धन्यवाद, खाना!'},
+     lines:[
+       {em:'🫓',    en:'Roti on my plate!',              hi:'मेरी थाली में रोटी!'},
+       {em:'🍛',    en:'Dal and sabzi too.',             hi:'दाल और सब्ज़ी भी।'},
+       {em:'☀️',    en:'The sun helped it grow.',        hi:'सूरज ने इसे उगाया।'},
+       {em:'👨‍🌾', en:'The kisan grew it with love.',   hi:'किसान ने प्यार से उगाया।'},
+       {em:'🙏',    en:'We say: Thank you, food!',       hi:'हम कहते हैं: धन्यवाद, खाना!'},
+       {em:'😋',    en:'Now eat it all — yum!',          hi:'अब सब खाओ — मज़ा!'}
+     ],
+     q:{en:'Show me the good one!', hi:'अच्छा वाला दिखाओ!'},
+     opts:[{em:'🙏😋', ok:true},{em:'🗑️'}],
+     val:{en:'Thank you, food!', hi:'धन्यवाद, खाना!'}},
+    {id:'hug', em:'🤗', title:{en:'The Big Hug', hi:'बड़ी झप्पी'},
+     lines:[
+       {em:'👨',       en:'Papa comes home.',              hi:'पापा घर आते हैं।'},
+       {em:'🐶',       en:'Furry runs — wag, wag, wag!',   hi:'फ़री दौड़ता है — पूँछ हिलाता!'},
+       {em:'👩👵',     en:'Mumma smiles. Dadi laughs.',    hi:'मम्मा मुस्कुराती हैं। दादी हँसती हैं।'},
+       {em:'👨‍👩‍👧🐶', en:'Everyone together!',            hi:'सब साथ-साथ!'},
+       {em:'🤗',       en:'One big family hug!',           hi:'एक बड़ी झप्पी!'},
+       {em:'❤️',       en:'Family love is the best love.', hi:'परिवार का प्यार सबसे प्यारा।'}
+     ],
+     q:{en:'Show me family time!', hi:'परिवार का समय दिखाओ!'},
+     opts:[{em:'🤗', ok:true},{em:'📱'}],
+     val:{en:'Family love is the best love!', hi:'परिवार का प्यार सबसे प्यारा!'}}
+  ]
+};
+
+/* stars: on-device only */
+function getStars(){
+  try{ return new Set(JSON.parse(localStorage.getItem('la_stars')||'[]')); }
+  catch(e){ return new Set(); }
+}
+function addStar(id){
+  const s=getStars(); s.add(id);
+  localStorage.setItem('la_stars', JSON.stringify([...s]));
+}
+
+const ST = { story:null, i:0, playing:false, phase:'read' };
+
+function buildStoryLists(){
+  const stars=getStars();
+  const make=(listId, arr)=>{
+    const list=$(listId); list.innerHTML='';
+    arr.forEach(st=>{
+      const b=document.createElement('button');
+      b.className='storycard';
+      b.innerHTML=`<span class="em">${st.em}</span>
+                   <span class="t">${st.title[S.lang]}</span>
+                   <span class="star">${stars.has(st.id)?'⭐':''}</span>`;
+      b.onclick=()=>openStory(st);
+      list.appendChild(b);
+    });
+  };
+  make('storylist-value',   STORIES.value);
+  make('storylist-special', STORIES.special);
+}
+
+function openStory(st){
+  ST.story=st; ST.i=0; ST.playing=true; ST.phase='read';
+  $('st-title').textContent = st.em+' '+st.title[S.lang];
+  $('st-choice').style.display='none';
+  $('st-end').style.display='none';
+  $('st-line').style.display='flex';
+  const dots=$('st-dots'); dots.innerHTML='';
+  st.lines.forEach(()=>{
+    const d=document.createElement('span'); d.className='dot'; dots.appendChild(d);
+  });
+  show('storyPlay');
+  setTimeout(()=>playStoryLine(0), 400);
+}
+function storyDots(i){
+  document.querySelectorAll('#st-dots .dot').forEach((d,idx)=>{
+    d.classList.toggle('on', idx===i);
+    d.classList.toggle('done', idx<i);
+  });
+}
+function playStoryLine(i){
+  if(!ST.playing || !ST.story) return;
+  const st=ST.story;
+  if(i>=st.lines.length){ storyChoice(); return; }
+  ST.i=i;
+  storyDots(i);
+  const ln=st.lines[i];
+  $('st-scene').textContent=ln.em;
+  $('st-scene').classList.remove('big'); void $('st-scene').offsetWidth; $('st-scene').classList.add('big');
+  $('st-line').textContent=ln[S.lang];
+  speakRaw(ln[S.lang], {rate:0.82, onend:()=>{
+    if(ST.playing) setTimeout(()=>playStoryLine(i+1), 550);
+  }});
+}
+function storyChoice(){
+  if(!ST.story) return;
+  ST.phase='choice';
+  const st=ST.story;
+  storyDots(st.lines.length);
+  $('st-scene').textContent='🤔';
+  $('st-line').textContent=st.q[S.lang];
+  speakRaw(st.q[S.lang]);
+  const grid=$('st-choice'); grid.innerHTML=''; grid.style.display='grid';
+  shuffle([...st.opts]).forEach(o=>{
+    const b=document.createElement('button');
+    b.className='piccard'; b.textContent=o.em;
+    b.onclick=(ev)=>{
+      if(ST.phase!=='choice') return;
+      if(o.ok){
+        ST.phase='end';
+        const r=ev.target.getBoundingClientRect();
+        flyStars(r.left+r.width/2, r.top);
+        confetti();
+        addStar(st.id);
+        $('st-scene').textContent='🌟';
+        $('st-line').textContent=st.val[S.lang];
+        speakRaw(st.val[S.lang]);
+        grid.style.display='none';
+        $('st-again').textContent=T.again[S.lang];
+        $('st-stories').textContent=T.btn_stories[S.lang];
+        $('st-end').style.display='flex';
+      }else{
+        b.classList.remove('no'); void b.offsetWidth; b.classList.add('no');
+        speakRaw(T.thinkagain[S.lang]);
+      }
+    };
+    grid.appendChild(b);
+  });
+}
+
 /* ---------- NAV / EVENTS ---------- */
 $('startbtn').onclick=()=>{
   try{
@@ -1166,6 +1451,23 @@ $('rp-back').onclick=()=>{
   show('rhymeMenu');
 };
 $('rp-replay').onclick=()=>{ if(R.rhyme){ R.playing=true; playLine(0); } };
+$('sm-back').onclick=()=>{ speechSynthesis && speechSynthesis.cancel(); show('world3'); };
+$('sm-replay').onclick=()=>say(T.pickstory);
+$('st-back').onclick=()=>{
+  ST.playing=false;
+  speechSynthesis && speechSynthesis.cancel();
+  buildStoryLists();
+  show('storyMenu');
+};
+$('st-replay').onclick=()=>{ if(ST.story) openStory(ST.story); };
+$('st-again').onclick=()=>{ if(ST.story) openStory(ST.story); };
+$('st-stories').onclick=()=>{
+  ST.playing=false;
+  speechSynthesis && speechSynthesis.cancel();
+  buildStoryLists();
+  show('storyMenu');
+  say(T.pickstory);
+};
 $('g-back').onclick=()=>{ speechSynthesis && speechSynthesis.cancel(); show(S.menu); };
 $('g-replay').onclick=()=>{ if(S.lastLine) say(S.lastLine); };
 $('c-again').onclick=()=>startGame(S.game);
