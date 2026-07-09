@@ -326,6 +326,27 @@
   }
   .choicegrid .piccard{min-height:130px;font-size:3rem}
 
+  /* move & breathe */
+  .picgrid3{flex:1;display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;align-content:center}
+  .picgrid3 .piccard{min-height:110px;font-size:2.8rem}
+  .posewrap{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px}
+  .poseem{font-size:6rem;animation:popin .4s ease}
+  .dancer{font-size:6.4rem;animation:dbounce .5s ease-in-out infinite}
+  @keyframes dbounce{0%,100%{transform:translateY(0) rotate(-7deg)}50%{transform:translateY(-20px) rotate(7deg)}}
+  .frozen{font-size:6.4rem;animation:popin .3s ease}
+  .breathwrap{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px}
+  .breathcircle{
+    width:170px;height:170px;border-radius:50%;
+    background:var(--haldi-soft);border:4px solid var(--haldi);
+    display:flex;align-items:center;justify-content:center;font-size:4rem;
+    transition:transform 3.8s ease-in-out;
+  }
+  .breathcircle.in{transform:scale(1.55)}
+  @media (prefers-reduced-motion: reduce){
+    .dancer{animation:none}
+    .breathcircle{transition:none}
+  }
+
   #celebrate{justify-content:center;text-align:center;gap:14px}
   #celebrate h2{font-family:"Baloo 2",sans-serif;font-weight:800;font-size:2.2rem}
   #celebrate .sub{font-size:1.15rem;font-weight:600;color:var(--ink-soft)}
@@ -482,6 +503,16 @@
   </div>
 </section>
 
+<section id="moveMenu" class="screen">
+  <div class="topbar">
+    <button class="iconbtn" id="mm-back" aria-label="Back">←</button>
+    <div class="worldtitle" id="mm-title">Move & Breathe</div>
+    <button class="iconbtn" id="mm-replay" aria-label="Repeat">🔊</button>
+  </div>
+  <div class="gamesgrid" id="movegrid"></div>
+  <div class="trust">🧘</div>
+</section>
+
 <section id="game" class="screen">
   <div class="topbar">
     <button class="iconbtn" id="g-back" aria-label="Back">←</button>
@@ -518,6 +549,7 @@ const S = {
   round: 0,
   phase: 'tap',
   tapped: 0,
+  tok: 0,
   lastLine: null
 };
 
@@ -565,6 +597,16 @@ const T = {
   didit:     {en:'✅ I did it!',     hi:'✅ मैंने किया!'},
   pickrhyme: {en:'Pick a rhyme!',    hi:'एक कविता चुनो!'},
   act_story_s:{en:'8 stories!',      hi:'8 कहानियाँ!'},
+  act_move_s:{en:'4 games!',         hi:'4 खेल!'},
+  g_poses:   {en:'Copy Furry',       hi:'फ़री जैसे बनो'},
+  g_freeze:  {en:'Freeze Dance',     hi:'फ़्रीज़ डांस'},
+  g_breath:  {en:'Flower Breath',    hi:'फूल की साँस'},
+  g_feel:    {en:'Feelings Faces',   hi:'भाव चेहरे'},
+  dance_go:  {en:'Dance, dance, dance!', hi:'नाचो, नाचो, नाचो!'},
+  freeze_now:{en:'FREEZE! Be a statue!',  hi:'फ़्रीज़! मूर्ति बनो!'},
+  breath_in: {en:'Smell the flower... breathe in...', hi:'फूल सूँघो... साँस अंदर...'},
+  breath_out:{en:'Blow the candle... breathe out...', hi:'मोमबत्ती बुझाओ... साँस बाहर...'},
+  calm_end:  {en:'So calm, so peaceful. Shabash!',    hi:'कितना शांत, कितना सुंदर। शाबाश!'},
   pickstory: {en:'Pick a story!',    hi:'एक कहानी चुनो!'},
   month_head:{en:'This month: Kindness ❤️', hi:'इस महीने: दया ❤️'},
   special_head:{en:'Special stories ✨',     hi:'ख़ास कहानियाँ ✨'},
@@ -677,6 +719,8 @@ function applyLang(){
   $('sm-title').textContent = T.act_story[S.lang];
   $('sm-month').textContent = T.month_head[S.lang];
   $('sm-special').textContent = T.special_head[S.lang];
+  $('mm-title').textContent = T.act_move[S.lang];
+  buildMoveGames();
   buildStoryLists();
   $('c-title').textContent  = T.celeb[S.lang];
   $('c-sub').textContent    = T.celebsub[S.lang];
@@ -724,7 +768,7 @@ const ACTS = [
   {id:'num',   em:'🔢', t:'act_num',   s:'act_num_s',   open:true},
   {id:'words', em:'🎵', t:'act_words', s:'act_words_s', open:true},
   {id:'story', em:'📖', t:'act_story', s:'act_story_s', open:true},
-  {id:'move',  em:'🧘', t:'act_move',  s:'locked_s',    open:false},
+  {id:'move',  em:'🧘', t:'act_move',  s:'act_move_s',  open:true},
   {id:'bye',   em:'🌙', t:'act_bye',   s:'locked_s',    open:false}
 ];
 function buildActs(){
@@ -738,6 +782,7 @@ function buildActs(){
       if(x.id==='num'){ show('numMenu'); say(T.nmhello); }
       else if(x.id==='words'){ show('wordsMenu'); say(T.nmhello); }
       else if(x.id==='story'){ show('storyMenu'); buildStoryLists(); say(T.pickstory); }
+      else if(x.id==='move'){ show('moveMenu'); say(T.nmhello); }
       else{
         b.classList.remove('wob'); void b.offsetWidth; b.classList.add('wob');
         say(T.comingsoon);
@@ -781,6 +826,23 @@ function buildWordsGames(){
       if(x.id==='rhyme'){ show('rhymeMenu'); say(T.pickrhyme); }
       else { S.menu='wordsMenu'; startGame(x.id); }
     };
+    g.appendChild(b);
+  });
+}
+
+const MGAMES = [
+  {id:'poses',  em:'🧘', t:'g_poses'},
+  {id:'freeze', em:'💃', t:'g_freeze'},
+  {id:'breath', em:'🌸', t:'g_breath'},
+  {id:'feel',   em:'😊', t:'g_feel'}
+];
+function buildMoveGames(){
+  const g=$('movegrid'); g.innerHTML='';
+  MGAMES.forEach(x=>{
+    const b=document.createElement('button');
+    b.className='gcard';
+    b.innerHTML=`<span class="em">${x.em}</span><span class="t">${T[x.t][S.lang]}</span>`;
+    b.onclick=()=>{ S.menu='moveMenu'; startGame(x.id); };
     g.appendChild(b);
   });
 }
@@ -841,6 +903,10 @@ function startRound(){
   if(S.game==='wordhunt') roundWordHunt(st);
   if(S.game==='say')      roundSay(st);
   if(S.game==='fsays')    roundFsays(st);
+  if(S.game==='poses')    roundPoses(st);
+  if(S.game==='freeze')   roundFreeze(st);
+  if(S.game==='breath')   roundBreath(st);
+  if(S.game==='feel')     roundFeel(st);
 }
 
 /* ---------- NUMBER GAMES (Module 2, unchanged) ---------- */
@@ -1425,6 +1491,168 @@ function storyChoice(){
   });
 }
 
+/* =====================================================
+   MODULE 5 — MOVE & BREATHE 🧘
+===================================================== */
+
+/* ---------- GAME: COPY FURRY (poses) ---------- */
+const POSES = [
+  {em:'🐶', line:{en:'Dog pose — like me! Hands down, hips up high! Hold — one, two, three!',
+                  hi:'कुत्ता आसन — मेरे जैसे! हाथ नीचे, कमर ऊपर! रुको — एक, दो, तीन!'}},
+  {em:'🐱', line:{en:'Cat pose! Hands and knees, round your back — meow! Hold — one, two, three!',
+                  hi:'बिल्ली आसन! हाथ और घुटने, पीठ गोल — म्याऊँ! रुको — एक, दो, तीन!'}},
+  {em:'🦋', line:{en:'Butterfly! Sit down, feet together, flap your wings! One, two, three!',
+                  hi:'तितली! बैठो, पैर जोड़ो, पंख हिलाओ! एक, दो, तीन!'}},
+  {em:'🌳', line:{en:'Tree pose! Stand on one leg, hands up like branches! Hold — one, two, three!',
+                  hi:'पेड़ आसन! एक पैर पर खड़े हो, हाथ ऊपर डाली जैसे! रुको — एक, दो, तीन!'}},
+  {em:'⭐', line:{en:'Star jump! Jump big like a shining star! One, two, three!',
+                  hi:'तारा कूद! चमकते तारे जैसे बड़ी छलाँग! एक, दो, तीन!'}}
+];
+let POSE_ORDER = [];
+function roundPoses(st){
+  S.phase='do';
+  if(S.round===0) POSE_ORDER = shuffle([...POSES]);
+  const p=POSE_ORDER[S.round];
+  bubble(p.line[S.lang]); say(p.line, {rate:0.82});
+  const wrap=document.createElement('div'); wrap.className='posewrap';
+  wrap.innerHTML=`<div class="poseem">${p.em}</div>`;
+  const btn=document.createElement('button');
+  btn.className='micbtn';
+  btn.textContent=T.didit[S.lang];
+  btn.onclick=(ev)=>{
+    if(S.phase!=='do') return;
+    correct(ev, {confetti:false});
+  };
+  wrap.appendChild(btn);
+  st.appendChild(wrap);
+}
+
+/* ---------- GAME: FREEZE DANCE (generated music) ---------- */
+const TUNE = { ctx:null, timer:null, playing:false };
+const NOTES = [523.25, 659.25, 783.99, 659.25, 587.33, 783.99, 880.00, 783.99, 659.25, 523.25, 587.33, 659.25];
+function beep(freq, dur){
+  const c=TUNE.ctx;
+  const t=c.currentTime;
+  const o=c.createOscillator();
+  const g=c.createGain();
+  o.type='triangle';
+  o.frequency.value=freq;
+  g.gain.setValueAtTime(0.0001, t);
+  g.gain.exponentialRampToValueAtTime(0.16, t+0.03);
+  g.gain.exponentialRampToValueAtTime(0.0001, t+dur);
+  o.connect(g); g.connect(c.destination);
+  o.start(t); o.stop(t+dur+0.05);
+}
+function playTune(){
+  try{
+    if(!TUNE.ctx) TUNE.ctx = new (window.AudioContext||window.webkitAudioContext)();
+    TUNE.ctx.resume();
+  }catch(e){ return; }
+  TUNE.playing=true;
+  let step=0;
+  TUNE.timer=setInterval(()=>{
+    if(!TUNE.playing) return;
+    beep(NOTES[step % NOTES.length], 0.24);
+    step++;
+  }, 290);
+}
+function stopTune(){
+  TUNE.playing=false;
+  if(TUNE.timer){ clearInterval(TUNE.timer); TUNE.timer=null; }
+}
+function roundFreeze(st){
+  S.phase='dance';
+  const myTok = ++S.tok;
+  bubble(T.dance_go[S.lang]); say(T.dance_go);
+  const wrap=document.createElement('div'); wrap.className='posewrap';
+  wrap.innerHTML=`<div class="dancer">${pick(['💃','🕺','🐶'])}</div>`;
+  st.appendChild(wrap);
+  setTimeout(()=>{ if(S.tok===myTok) playTune(); }, 900);
+  const danceMs = 4500 + Math.random()*3000;
+  setTimeout(()=>{
+    if(S.tok!==myTok || S.phase!=='dance') return;
+    stopTune();
+    S.phase='frozen';
+    wrap.innerHTML=`<div class="frozen">🗿</div>`;
+    bubble(T.freeze_now[S.lang]); say(T.freeze_now);
+    setTimeout(()=>{
+      if(S.tok!==myTok) return;
+      correct(null, {confetti:false});
+    }, 2800);
+  }, 900+danceMs);
+}
+
+/* ---------- GAME: FLOWER BREATH (calm corner) ---------- */
+function roundBreath(st){
+  S.phase='breathe';
+  const myTok = ++S.tok;
+  const wrap=document.createElement('div'); wrap.className='breathwrap';
+  const circle=document.createElement('div'); circle.className='breathcircle';
+  circle.innerHTML='🌸';
+  wrap.appendChild(circle);
+  st.appendChild(wrap);
+  /* breathe in */
+  bubble(T.breath_in[S.lang]); say(T.breath_in, {rate:0.72});
+  circle.innerHTML='🌸';
+  requestAnimationFrame(()=>circle.classList.add('in'));
+  setTimeout(()=>{
+    if(S.tok!==myTok) return;
+    /* breathe out */
+    bubble(T.breath_out[S.lang]); say(T.breath_out, {rate:0.72});
+    circle.innerHTML='🕯️';
+    circle.classList.remove('in');
+    setTimeout(()=>{
+      if(S.tok!==myTok) return;
+      S.round++;
+      buildPaws();
+      if(S.round>=5){
+        S.phase='calmend';
+        circle.innerHTML='😌';
+        bubble(T.calm_end[S.lang]); say(T.calm_end, {rate:0.78});
+        const btns=document.createElement('div'); btns.className='rowbtns';
+        const b1=document.createElement('button'); b1.className='midbtn gold';
+        b1.textContent=T.again[S.lang];
+        b1.onclick=()=>startGame('breath');
+        const b2=document.createElement('button'); b2.className='midbtn';
+        b2.textContent=T.moregames[S.lang];
+        b2.onclick=()=>{ show(S.menu); say(T.nmhello); };
+        btns.appendChild(b1); btns.appendChild(b2);
+        wrap.appendChild(btns);
+      }else{
+        startRound();
+      }
+    }, 4300);
+  }, 4600);
+}
+
+/* ---------- GAME: FEELINGS FACES ---------- */
+const FEELINGS = [
+  {em:'😊', en:'happy',    hi:'खुश'},
+  {em:'😢', en:'sad',      hi:'उदास'},
+  {em:'😠', en:'angry',    hi:'गुस्सा'},
+  {em:'😴', en:'sleepy',   hi:'नींद में'},
+  {em:'😲', en:'surprised',hi:'हैरान'}
+];
+function roundFeel(st){
+  S.phase='ask';
+  const three=shuffle([...FEELINGS]).slice(0,3);
+  const target=pick(three);
+  const line={en:`Find the ${target.en} face!`, hi:`${target.hi} चेहरा ढूँढो!`};
+  bubble(line[S.lang]); say(line);
+  const grid=document.createElement('div'); grid.className='picgrid3';
+  three.forEach(f=>{
+    const b=document.createElement('button');
+    b.className='piccard'; b.textContent=f.em;
+    b.setAttribute('aria-label', f.en);
+    b.onclick=(ev)=>{
+      if(S.phase!=='ask') return;
+      f===target ? correct(ev) : wrong(b);
+    };
+    grid.appendChild(b);
+  });
+  st.appendChild(grid);
+}
+
 /* ---------- NAV / EVENTS ---------- */
 $('startbtn').onclick=()=>{
   try{
@@ -1468,7 +1696,9 @@ $('st-stories').onclick=()=>{
   show('storyMenu');
   say(T.pickstory);
 };
-$('g-back').onclick=()=>{ speechSynthesis && speechSynthesis.cancel(); show(S.menu); };
+$('mm-back').onclick=()=>{ S.tok++; stopTune(); speechSynthesis && speechSynthesis.cancel(); show('world3'); };
+$('mm-replay').onclick=()=>say(T.nmhello);
+$('g-back').onclick=()=>{ S.tok++; stopTune(); speechSynthesis && speechSynthesis.cancel(); show(S.menu); };
 $('g-replay').onclick=()=>{ if(S.lastLine) say(S.lastLine); };
 $('c-again').onclick=()=>startGame(S.game);
 $('c-games').onclick=()=>{ show(S.menu); say(T.nmhello); };
